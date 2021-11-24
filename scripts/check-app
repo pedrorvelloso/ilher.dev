@@ -1,0 +1,9 @@
+#!/bin/sh
+
+npx concurrently \
+  --kill-others-on-fail \
+  --prefix "[{name}]" \
+  --names "type,lint" \
+  --prefix-colors "bgBlue.bold.white,bgGreen.bold.white" \
+    "yarn check:types" \
+    "yarn check:lint"
