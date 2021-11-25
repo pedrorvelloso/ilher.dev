@@ -1,0 +1,20 @@
+:root {
+  --accent-color: #2ca9d4;
+  --color-dark-blue: #131822;
+  --color-blueGray-500: #a9adc1;
+}
+
+.light {
+  --bg-primary: var(--color-white);
+}
+
+.dark {
+  --bg-primary: var(--color-dark-blue);
+}
+
+body {
+  background-color: var(--bg-primary);
+  @apply transition-colors ease-linear;
+}
+
+

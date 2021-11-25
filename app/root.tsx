@@ -8,14 +8,21 @@ import {
   ScrollRestoration,
   useCatch,
   useLocation,
+  useLoaderData,
 } from 'remix'
-import type { LinksFunction } from 'remix'
+import type { LinksFunction, LoaderFunction } from 'remix'
 
-import tailwindCss from '~/styles/tailwind.css'
+import tailwindStyles from './styles/tailwind.css'
+import appStyles from './styles/app.css'
+import noScriptStyles from './styles/no-script.css'
+
+import { Layout } from './components/layout'
+
+import { getThemeSession } from './sessions/theme.server'
+import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
 
 export const links: LinksFunction = () => {
   return [
-    { rel: 'stylesheet', href: tailwindCss },
     {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap',
@@ -24,14 +31,33 @@ export const links: LinksFunction = () => {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap',
     },
+    { rel: 'stylesheet', href: tailwindStyles },
+    { rel: 'stylesheet', href: appStyles },
   ]
 }
 
+type RootLoaderData = {
+  theme: Theme
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const themeSession = await getThemeSession(request)
+
+  return {
+    theme: themeSession.getTheme(),
+  }
+}
+
 export default function App() {
+  const data = useLoaderData<RootLoaderData>()
   return (
-    <Document>
-      <Outlet />
-    </Document>
+    <ThemeProvider initialTheme={data.theme}>
+      <Document>
+        <Layout>
+          <Outlet />
+        </Layout>
+      </Document>
+    </ThemeProvider>
   )
 }
 
@@ -42,6 +68,8 @@ function Document({
   children: React.ReactNode
   title?: string
 }) {
+  const { theme } = useTheme()
+
   return (
     <html lang="en">
       <head>
@@ -49,9 +77,17 @@ function Document({
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
         <Meta />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <Links />
+        <noscript>
+          <link rel="stylesheet" href={noScriptStyles} />
+        </noscript>
       </head>
-      <body>
+      <body className={theme}>
         {children}
         <RouteChangeAnnouncement />
         <ScrollRestoration />
