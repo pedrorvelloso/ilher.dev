@@ -24,6 +24,15 @@ import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
 export const links: LinksFunction = () => {
   return [
     {
+      rel: 'preconnect',
+      href: 'https://fonts.googleapis.com/',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com/',
+      crossOrigin: 'anonymous',
+    },
+    {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap',
     },
@@ -77,11 +86,6 @@ function Document({
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
         <Meta />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
         <Links />
         <noscript>
           <link rel="stylesheet" href={noScriptStyles} />

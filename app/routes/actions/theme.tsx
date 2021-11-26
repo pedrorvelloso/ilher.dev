@@ -1,5 +1,5 @@
-import type { ActionFunction } from 'remix'
-import { json } from 'remix'
+import type { ActionFunction, LoaderFunction } from 'remix'
+import { json, redirect } from 'remix'
 
 import { Theme } from '~/providers/theme-provider'
 import { getThemeSession } from '~/sessions/theme.server'
@@ -30,3 +30,5 @@ export const action: ActionFunction = async ({ request }) => {
     { headers: { 'Set-Cookie': await themeSession.commit() } },
   )
 }
+
+export const loader: LoaderFunction = () => redirect('/', { status: 404 })
