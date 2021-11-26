@@ -9,7 +9,7 @@ interface StackSectionProps {
   }
 }
 
-const StackSection = ({
+export const StackSection = ({
   stack: { frontendStack, backendStack, infraStack },
 }: StackSectionProps) => {
   return (
@@ -22,5 +22,3 @@ const StackSection = ({
     </div>
   )
 }
-
-export default StackSection

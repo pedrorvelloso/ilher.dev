@@ -1,10 +1,9 @@
-import { Section } from '~/components/section'
-import { H1 } from '~/components/heading'
+import { H1 } from '~/components/typograph'
 import { Avatar } from '~/components/avatar'
 
-function HeroSection() {
+export const HeroSection = () => {
   return (
-    <Section className="h-hero-sm lg:h-hero flex items-center justify-center flex-col">
+    <section className="lg:mx-auto max-w-screen-xl px-0 lg:px-12 mx-10vw h-hero-sm lg:h-hero flex items-center justify-center flex-col">
       <Avatar src="/imgs/avatar.jpeg" alt="Pedro Reis" className="mb-4" />
       <div>
         <H1 className="leading-tight text-center">Full stacker developer</H1>
@@ -13,8 +12,6 @@ function HeroSection() {
           experiences.
         </p>
       </div>
-    </Section>
+    </section>
   )
 }
-
-export default HeroSection

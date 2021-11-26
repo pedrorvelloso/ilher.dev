@@ -3,7 +3,7 @@ import { FaMoon as MoonIcon, FaSun as SunIcon } from 'react-icons/fa'
 
 import { useTheme } from '~/providers/theme-provider'
 
-import Anchor from '~/components/anchor'
+import { Anchor } from '~/components/anchor'
 
 const ThemeChanger = () => {
   const { theme, changeTheme } = useTheme()
@@ -56,9 +56,7 @@ export const Navbar = () => {
           Pedro Reis
         </Anchor>
         <div className="flex items-center">
-          <div className="noscript-hidden">
-            <ThemeChanger />
-          </div>
+          <ThemeChanger />
           <span className="hidden ml-6 lg:block">
             <Anchor
               external

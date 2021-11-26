@@ -12,6 +12,22 @@ module.exports = {
           500: 'var(--color-blueGray-500)',
         },
         accent: 'var(--accent-color)',
+        twitter: {
+          brand: 'rgba(29, 161, 242, 1)',
+          transparent: 'rgba(29, 161, 242, 0.08)',
+        },
+        github: {
+          brand: 'rgba(51, 51, 51, 1)',
+          transparent: 'var(--color-github-transparent)',
+        },
+        twitch: {
+          brand: 'rgb(100,65,164)',
+          transparent: 'rgba(100,65,164, 0.1)',
+        },
+        linkedin: {
+          brand: 'rgba(40,103,178, 1)',
+          transparent: 'rgba(40,103,178, 0.08)',
+        },
       },
       spacing: {
         17: '3.65rem',
@@ -36,6 +52,9 @@ module.exports = {
       height: {
         hero: 'min(60rem, calc(100vh - 10rem))',
         'hero-sm': 'calc(50vh + 10rem)',
+      },
+      maxWidth: {
+        '8xl': '96rem',
       },
     },
   },

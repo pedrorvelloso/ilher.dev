@@ -1,6 +1,6 @@
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
-import Anchor from '~/components/anchor'
+import { Anchor } from '~/components/anchor'
 
 interface NavigationButtonProps {
   direction: 'foward' | 'backward'

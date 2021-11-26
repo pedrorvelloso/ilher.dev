@@ -8,7 +8,7 @@ export interface AnchorProps {
   external?: boolean
 }
 
-const Anchor: React.FC<AnchorProps> = ({
+export const Anchor: React.FC<AnchorProps> = ({
   href,
   className,
   children,
@@ -34,5 +34,3 @@ const Anchor: React.FC<AnchorProps> = ({
     </Link>
   )
 }
-
-export default Anchor

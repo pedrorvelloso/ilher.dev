@@ -1,8 +1,9 @@
 import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
-import HeroSection from '~/components/sections/hero-section'
-import StackSection from '~/components/sections/stack-section'
+import { AboutMeSection } from '~/components/sections/about-me-section'
+import { HeroSection } from '~/components/sections/hero-section'
+import { StackSection } from '~/components/sections/stack-section'
 
 import hljsStyles from '~/styles/hljs.css'
 
@@ -42,6 +43,7 @@ const Index = () => {
     <>
       <HeroSection />
       <StackSection stack={data.stack} />
+      <AboutMeSection />
     </>
   )
 }
