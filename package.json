@@ -4,7 +4,8 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build": "remix build",
+    "build": "yarn build:css && remix build",
+    "prebuild": "yarn clear",
     "dev": "./scripts/run-dev",
     "postinstall": "remix setup node",
     "deploy": "flyctl deploy",
@@ -17,7 +18,7 @@
     "check:lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
     "validate": "./scripts/check-app",
     "prepare": "husky install",
-    "clear": "rimraf .cache build public/build"
+    "clear": "rimraf .cache build public/build \"./app/styles/**/*.css\""
   },
   "dependencies": {
     "@remix-run/react": "^1.0.6",
