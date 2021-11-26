@@ -14,7 +14,7 @@ const ThemeChanger = () => {
       onClick={() => {
         changeTheme(theme === 'dark' ? 'light' : 'dark')
       }}
-      className="inline-flex items-center justify-center h-14 focus:outline-none overflow-hidden"
+      className="inline-flex items-center justify-center h-14 focus:outline-none overflow-hidden noscript-hidden"
     >
       <div className="relative w-8 h-8">
         <span
@@ -64,7 +64,7 @@ export const Navbar = () => {
               external
               underline={false}
               href="mailto:pedro@ilher.dev"
-              className="no-underline bg-accent text-white px-6 py-2 rounded-full text-md"
+              className="no-underline bg-accent text-white hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all px-6 py-2 rounded-full text-md"
             >
               Let&apos;s chat
             </Anchor>

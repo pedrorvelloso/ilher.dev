@@ -1,8 +1,10 @@
-import type { LoaderFunction } from 'remix'
+import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
 import HeroSection from '~/components/sections/hero-section'
 import StackSection from '~/components/sections/stack-section'
+
+import hljsStyles from '~/styles/hljs.css'
 
 import { highlight } from '~/utils/hljs.server'
 import {
@@ -18,6 +20,10 @@ type IndexLoaderData = {
     infraStack: string
   }
 }
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: hljsStyles },
+]
 
 export const loader: LoaderFunction = () => {
   const frontendStack = highlight(frontendStackCode, 'json')

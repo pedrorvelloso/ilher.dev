@@ -17,3 +17,36 @@
     }
   }
 }
+
+@layer components {
+  /* CODE - Index Page */
+  .code {
+    background-color: var(--color-dark-blue);
+    color: #bfbdb6;
+    text-shadow: 0 1px rgb(0 0 0 / 30%);
+    @apply h-auto lg:h-[560px] overflow-auto w-full m-2 py-4 rounded-md;
+  }
+
+  .code > code {
+    @apply inline-block relative min-w-full;
+  }
+
+  .code__line {
+    @apply inline-block relative min-w-full pr-4;
+  }
+
+  .code__line[data-line-number]::before {
+    content: attr(data-line-number);
+    color: #acb6bf8c;
+    @apply w-12 inline-block text-right pr-4;
+  }
+
+  /* CODE SCROLL */
+  .code__scroll::-webkit-scrollbar {
+    @apply w-[4px] h-[4px];
+  }
+
+  .code__scroll::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-sm
+  }
+}

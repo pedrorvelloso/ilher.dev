@@ -6,6 +6,7 @@ export const frontendStack = `{
   "libsAndFrameworks": [
     "React",
     "NextJS",
+    "Remix",
     "Vue",
     "Angular"
   ],
