@@ -4,5 +4,6 @@ node_modules
 /server/build
 /public/build
 /build
+/api/build
 
 /app/styles/**/*.css
