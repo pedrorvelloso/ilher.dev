@@ -20,6 +20,7 @@ export const AboutMeSection = () => {
             <Anchor
               href="https://southsystem.com.br/en/home/"
               className="text-southsystem"
+              external
             >
               South System
             </Anchor>{' '}

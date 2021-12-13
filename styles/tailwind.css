@@ -22,7 +22,7 @@
   /* CODE - Index Page */
   .code {
     background-color: var(--color-dark-blue);
-    color: #bfbdb6;
+    color: #E1E1E6;
     text-shadow: 0 1px rgb(0 0 0 / 30%);
     @apply h-auto lg:h-[560px] overflow-auto w-full m-2 py-4 rounded-md;
   }
@@ -31,8 +31,14 @@
     @apply inline-block relative min-w-full;
   }
 
+  .code-post {
+    color: #E1E1E6;
+    text-shadow: 0 1px rgb(0 0 0 / 30%);
+    @apply h-auto overflow-auto w-full my-2 py-4 rounded-md;
+  }
+
   .code__line {
-    @apply inline-block relative min-w-full pr-4;
+    @apply block relative min-w-full pr-4;
   }
 
   .code__line[data-line-number]::before {

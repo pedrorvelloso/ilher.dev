@@ -24,15 +24,32 @@ if (process.env.NODE_ENV === 'production') {
 
 redisClient.on('error', (error) => console.error('REDIS ERROR', error))
 
-function get<Value = unknown>(key: string): Promise<Value | null> {
+async function get<Value = unknown>(key: string) {
+  try {
+    const result = await redisClient.get(key)
+
+    return result ? (JSON.parse(result) as Value) : null
+  } catch (err) {
+    console.error('Redis error:', err)
+    throw err
+  }
+}
+
+function set<Value>(key: string, value: Value): Promise<'OK'> {
   return new Promise((resolve) => {
-    redisClient.get(key, (err, res) => {
-      if (err) {
-        console.error('Redis error:', err)
-      }
-      resolve(res ? (JSON.parse(res) as Value) : null)
+    redisClient.set(key, JSON.stringify(value)).then((result) => {
+      if (result) resolve(result)
     })
   })
 }
 
-export const redisCache = { get }
+async function del(key: string) {
+  await redisClient.del(key)
+}
+
+export const redisCache = {
+  get,
+  set,
+  del,
+  keys: redisClient.keys.bind(redisClient),
+}

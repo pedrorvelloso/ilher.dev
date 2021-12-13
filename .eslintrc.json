@@ -47,7 +47,8 @@
     "no-underscore-dangle": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "global-require": "off",
-    "vars-on-top": "off"
+    "vars-on-top": "off",
+    "consistent-return": "off"
   },
   "settings": {
     "import/resolver": {

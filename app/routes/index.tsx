@@ -5,14 +5,10 @@ import { AboutMeSection } from '~/components/sections/about-me-section'
 import { HeroSection } from '~/components/sections/hero-section'
 import { StackSection } from '~/components/sections/stack-section'
 
-import hljsStyles from '~/styles/hljs.css'
+import indexStyles from '~/styles/routes/index.css'
+import prismtyles from '~/styles/prism.css'
 
-import { highlight } from '~/utils/hljs.server'
-import {
-  frontendStack as frontendStackCode,
-  backendStack as backendStackCode,
-  infraStack as infraStackCode,
-} from '~/utils/stack'
+import { redisCache } from '~/utils/redis.server'
 
 type IndexLoaderData = {
   stack: {
@@ -23,17 +19,14 @@ type IndexLoaderData = {
 }
 
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: hljsStyles },
+  { rel: 'stylesheet', href: indexStyles },
+  { rel: 'stylesheet', href: prismtyles },
 ]
 
-export const loader: LoaderFunction = () => {
-  const frontendStack = highlight(frontendStackCode, 'json')
-  const backendStack = highlight(backendStackCode, 'json')
-  const infraStack = highlight(infraStackCode, 'json')
+export const loader: LoaderFunction = async () => {
+  await redisCache.keys('*')
 
-  const stack = { frontendStack, backendStack, infraStack }
-
-  return json({ stack })
+  return json({})
 }
 
 const Index = () => {
@@ -42,7 +35,7 @@ const Index = () => {
   return (
     <>
       <HeroSection />
-      <StackSection stack={data.stack} />
+      <StackSection />
       <AboutMeSection />
     </>
   )

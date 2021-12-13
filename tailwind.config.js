@@ -11,6 +11,7 @@ module.exports = {
         blueGray: {
           500: 'var(--color-blueGray-500)',
         },
+        southsystem: '#ff5100',
         accent: 'var(--accent-color)',
         twitter: {
           brand: 'rgba(29, 161, 242, 1)',
@@ -59,5 +60,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 }

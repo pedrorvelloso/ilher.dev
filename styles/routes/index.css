@@ -1,0 +1,3 @@
+pre.prismjs {
+  @apply code code__scroll p-4;
+}

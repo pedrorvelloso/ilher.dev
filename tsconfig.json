@@ -9,6 +9,7 @@
     "target": "ES2019",
     "strict": true,
     "module": "esnext",
+    "noImplicitAny": false,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
