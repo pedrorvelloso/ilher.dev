@@ -8,8 +8,8 @@
     "resolveJsonModule": true,
     "target": "ES2019",
     "strict": true,
-    "module": "esnext",
     "noImplicitAny": false,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"]
