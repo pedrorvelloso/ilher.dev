@@ -14,9 +14,8 @@
     "watch:css": "postcss styles --base styles --dir app/styles -w",
     "build:css": "postcss styles --base styles --dir app/styles --env production",
     "check:types": "tsc -b",
-    "typecheck": "tsc --noEmit",
     "check:lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
-    "validate": "yarn check:lint",
+    "validate": "./scripts/check-app",
     "prepare": "husky install",
     "clear": "rimraf .cache api/build public/build \"./app/styles/**/*.css\""
   },
