@@ -32,3 +32,6 @@ function main() {
 }
 
 main()
+
+// USAGE
+// node scripts/post-blog.js <post> <origin> <authToken>
