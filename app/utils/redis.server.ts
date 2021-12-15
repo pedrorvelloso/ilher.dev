@@ -47,9 +47,21 @@ async function del(key: string) {
   await redisClient.del(key)
 }
 
+async function scan(pattern: string) {
+  const keyScan = redisClient.scanStream({ match: pattern })
+
+  const result = new Promise((resolve, reject) => {
+    keyScan.on('data', (keys) => resolve(keys))
+    keyScan.on('error', () => reject(new Error('failed to scan key')))
+  })
+
+  return result as Promise<string[]>
+}
+
 export const redisCache = {
   get,
   set,
   del,
   keys: redisClient.keys.bind(redisClient),
+  scan,
 }

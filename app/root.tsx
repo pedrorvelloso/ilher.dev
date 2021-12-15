@@ -126,9 +126,7 @@ export function CatchBoundary() {
       )
       break
     case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      )
+      message = <p>Page not found</p>
       break
 
     default:
@@ -136,9 +134,13 @@ export function CatchBoundary() {
   }
 
   return (
-    <Document title={`${caught.status} - ${caught.statusText}`}>
-      <ErrorPage title={message} description="Ooops" />
-    </Document>
+    <ThemeProvider initialTheme="dark">
+      <Document title={`${caught.status} - ${caught.statusText}`}>
+        <Layout>
+          <ErrorPage title={message} description="Ooops" />
+        </Layout>
+      </Document>
+    </ThemeProvider>
   )
 }
 

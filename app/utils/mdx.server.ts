@@ -5,6 +5,8 @@ import readingTime from 'reading-time'
 import { rehypeMetaAttrs } from './rehypePlugins.server'
 import { redisCache } from './redis.server'
 
+import { Post } from '~/types'
+
 export const compileMdx = async (content: string) => {
   const { code, frontmatter } = await bundleMDX({
     source: content,
@@ -33,6 +35,32 @@ export const getPost = async (slug: string) => {
   frontmatter.blurImage = await getBlurDataUrl(frontmatter.bannerId)
 
   return { code, frontmatter: { ...frontmatter, readTime } }
+}
+
+export const getLatestPosts = async () => {
+  const postsKeys = await redisCache.scan('blog:*')
+
+  const loadedPosts = await Promise.all(
+    postsKeys.map(async (p) => {
+      const { content } = (await redisCache.get(p)) as { content: string }
+
+      const { frontmatter, readTime } = await compileMdx(content)
+      frontmatter.blurImage = await getBlurDataUrl(frontmatter.bannerId)
+
+      const post = frontmatter as Post
+
+      return {
+        ...post,
+        readTime,
+      }
+    }),
+  )
+
+  loadedPosts.sort((postA, postB) => {
+    return +new Date(postB.date) - +new Date(postA.date)
+  })
+
+  return loadedPosts
 }
 
 const getDataUrlForImage = async (imageUrl: string) => {

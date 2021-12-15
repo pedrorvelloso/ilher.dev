@@ -8,7 +8,7 @@ import { StackSection } from '~/components/sections/stack-section'
 import indexStyles from '~/styles/routes/index.css'
 import prismtyles from '~/styles/prism.css'
 
-import { redisCache } from '~/utils/redis.server'
+import { getLatestPosts } from '~/utils/mdx.server'
 
 type IndexLoaderData = {
   stack: {
@@ -24,7 +24,7 @@ export const links: LinksFunction = () => [
 ]
 
 export const loader: LoaderFunction = async () => {
-  await redisCache.keys('*')
+  const posts = await getLatestPosts()
 
   return json({})
 }
