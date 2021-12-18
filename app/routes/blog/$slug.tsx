@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import type { LoaderFunction, LinksFunction, MetaFunction } from 'remix'
-import { useLoaderData, json, useCatch } from 'remix'
+import { useLoaderData, json } from 'remix'
 import { getMDXComponent } from 'mdx-bundler/client'
 import parseRange from 'parse-numeric-range'
 
@@ -15,6 +15,8 @@ import { formatDate } from '~/utils/dates'
 import { SyntaxHighlighter } from '~/components/syntax-highlighter'
 import { Image } from '~/components/image'
 import { H1, H2, Paragraph } from '~/components/typograph'
+import { Section } from '~/components/section'
+import { NavigationButton } from '~/components/navigation-button'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismStyles },
@@ -81,38 +83,45 @@ const BlogPost = () => {
   const Component = useMemo(() => getMDXComponent(data.code), [data.code])
 
   return (
-    <section className="lg:max-w-screen-xl lg:mx-auto lg:px-12 py-12">
-      <div className="lg:px-12 mx-10vw lg:mx-0 mb-16">
-        <H1>{data.frontmatter.title}</H1>
-        <Image
-          {...imageProps({
-            id: data.frontmatter.bannerId,
-            transformations: { resize: { width: 1600 } },
-          })}
-          alt={data.frontmatter.bannerAlt}
-          title={data.frontmatter.bannerCredit}
-          blurDataUrl={data.frontmatter.blurImage}
-          className="rounded-lg"
-          objectFit="cover"
-          objectPosition="center"
-          outterClassName="aspect-h-4 aspect-w-3 md:aspect-w-16 md:aspect-h-8 mb-4"
-        />
-        <H2>{data.frontmatter.description}</H2>
-        <Paragraph bigger={false}>
-          {formatDate(data.frontmatter.date)} -{' '}
-          <span className="mr-2">{data.frontmatter.readTime}</span>
-          {data.frontmatter.language}
-        </Paragraph>
-      </div>
-      <article className="post">
-        <Component components={components} />
-      </article>
-    </section>
+    <>
+      <Section as="div" className="flex">
+        <NavigationButton href="/blog" direction="backward">
+          Back to posts
+        </NavigationButton>
+      </Section>
+      <section className="lg:max-w-screen-xl lg:mx-auto lg:px-12 py-12">
+        <div className="lg:px-12 mx-10vw lg:mx-0 mb-16">
+          <H1 className="mb-4">{data.frontmatter.title}</H1>
+          <Image
+            {...imageProps({
+              id: data.frontmatter.bannerId,
+              transformations: { resize: { width: 1600 } },
+            })}
+            alt={data.frontmatter.bannerAlt}
+            title={data.frontmatter.bannerCredit}
+            blurDataUrl={data.frontmatter.blurImage}
+            className="rounded-lg"
+            objectFit="cover"
+            objectPosition="center"
+            outterClassName="aspect-h-4 aspect-w-3 md:aspect-w-16 md:aspect-h-8 mb-4"
+          />
+          <H2>{data.frontmatter.description}</H2>
+          <Paragraph bigger={false}>
+            {formatDate(data.frontmatter.date)} -{' '}
+            <span className="mr-2">{data.frontmatter.readTime}</span>
+            {data.frontmatter.language}
+          </Paragraph>
+        </div>
+        <article className="post">
+          <Component components={components} />
+        </article>
+      </section>
+    </>
   )
 }
 
 export const CatchBoundary = () => {
-  const caught = useCatch()
+  // const caught = useCatch()
 
   return <h1>oops</h1>
 }

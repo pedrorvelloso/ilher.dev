@@ -11,7 +11,7 @@ export const AboutMeSection = () => {
       <div className="flex flex-col lg:flex-row justify-between">
         <div className="max-w-2xl">
           <H3>Heeeeey, listen! 🧚 </H3>
-          <H1>Hi, I&apos;m Pedro!</H1>
+          <H1 className="mb-4">Hi, I&apos;m Pedro!</H1>
           <Paragraph>
             My name is Pedro Reis. I work as a Full Stack developer.
           </Paragraph>

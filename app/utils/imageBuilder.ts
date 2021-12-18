@@ -17,3 +17,42 @@ export function imageProps({ id, transformations }: ImagePropsOptions) {
 
   return { src: cloudinaryImage }
 }
+
+export function getImageProps({
+  id,
+  widths,
+  sizes,
+  transformations,
+}: {
+  id: string
+  widths: Array<number>
+  sizes: Array<string>
+  transformations?: TransformerOption
+}) {
+  const averageSize = Math.ceil(widths.reduce((a, s) => a + s) / widths.length)
+
+  return {
+    src: imageProps({
+      id,
+      transformations: {
+        ...transformations,
+        resize: { width: averageSize, ...transformations?.resize },
+      },
+    }).src,
+    srcSet: widths
+      .map((width) =>
+        [
+          imageProps({
+            id,
+            transformations: {
+              ...transformations,
+              resize: { width, ...transformations?.resize },
+            },
+          }).src,
+          `${width}w`,
+        ].join(' '),
+      )
+      .join(', '),
+    sizes: sizes.join(', '),
+  }
+}

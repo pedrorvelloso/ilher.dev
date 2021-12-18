@@ -1,8 +1,7 @@
 import type { ActionFunction } from 'remix'
 import { json } from 'remix'
 import { redisCache } from '~/utils/redis.server'
-
-const POST_KEY = 'blog'
+import { POST_KEY, HOME_POSTS } from '~/utils/cacheKeys'
 
 export const action: ActionFunction = async ({ request }) => {
   const body = await request.json()
@@ -23,6 +22,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   console.log('creating post')
   await redisCache.set(currKey, post)
+  await redisCache.del(HOME_POSTS)
 
   return { status: 200, message: `${body.slug} created` }
 }

@@ -13,6 +13,8 @@ const useSSRLayoutEffect =
 
 interface ImageProps {
   src: string
+  srcSet?: string
+  sizes?: string
   blurDataUrl?: string
   className?: string
   outterClassName?: string
@@ -26,6 +28,8 @@ interface ImageProps {
 
 export const Image = ({
   src,
+  srcSet,
+  sizes,
   blurDataUrl,
   alt,
   title,
@@ -63,11 +67,13 @@ export const Image = ({
       alt={alt}
       src={src}
       title={title}
+      srcSet={srcSet}
+      sizes={sizes}
       className={clsx(
         {
           'object-cover': objectFit === 'cover',
           'object-fill': objectFit === 'fill',
-          'bg-center': objectPosition === 'center',
+          'object-center': objectPosition === 'center',
         },
         className,
       )}

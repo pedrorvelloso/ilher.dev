@@ -10,8 +10,8 @@ const H1: React.FC<HeadingProps> = ({ className, id, children }) => {
     <h1
       id={id}
       className={clsx(
+        'text-2xl lg:text-4xl text-gray-800 dark:text-gray-100 font-bold',
         className,
-        'text-2xl lg:text-4xl text-gray-800 dark:text-gray-100 font-bold mb-4',
       )}
     >
       {children}

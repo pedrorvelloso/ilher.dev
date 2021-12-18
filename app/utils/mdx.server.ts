@@ -4,8 +4,9 @@ import readingTime from 'reading-time'
 
 import { rehypeMetaAttrs } from './rehypePlugins.server'
 import { redisCache } from './redis.server'
+import { HOME_POSTS } from './cacheKeys'
 
-import { Post } from '~/types'
+import { HomePost, Post } from '~/types'
 
 export const compileMdx = async (content: string) => {
   const { code, frontmatter } = await bundleMDX({
@@ -51,6 +52,7 @@ export const getLatestPosts = async () => {
 
       return {
         ...post,
+        url: `/${p.split(':')[1]}`,
         readTime,
       }
     }),
@@ -61,6 +63,17 @@ export const getLatestPosts = async () => {
   })
 
   return loadedPosts
+}
+
+export const getHomePosts = async () => {
+  const cache = await redisCache.get<Array<HomePost>>(HOME_POSTS)
+
+  if (cache) return cache
+
+  const posts = (await getLatestPosts()).slice(0, 3)
+  await redisCache.set(HOME_POSTS, posts)
+
+  return posts
 }
 
 const getDataUrlForImage = async (imageUrl: string) => {
