@@ -9,3 +9,5 @@ node_modules
 /app/styles/**/*.css
 
 .env
+
+yarn-error.log
