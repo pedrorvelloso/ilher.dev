@@ -1,11 +1,12 @@
 import Redis from 'ioredis'
+import { getEnv } from '~/utils/misc'
 
 let redisClient: Redis.Redis
 
 const redisConfig: Redis.RedisOptions = {
-  host: process.env.REDIS_HOST || 'localhost',
-  port: Number(process.env.REDIS_PORT) || 6379,
-  password: process.env.PASSWORD || 'password',
+  host: getEnv('REDIS_HOST', 'localhost'),
+  port: Number(getEnv('REDIS_PORT', '6379')),
+  password: getEnv('REDIS_PASSWORD', 'password'),
   commandTimeout: 1000,
 }
 

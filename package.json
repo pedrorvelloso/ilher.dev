@@ -9,7 +9,7 @@
     "dev": "pm2-dev ./scripts/pm2.config.js",
     "postinstall": "remix setup node",
     "predeploy": "yarn clear",
-    "start": "remix-serve build",
+    "start": "remix-serve api/build",
     "start:dev": "remix dev",
     "watch:css": "postcss styles --base styles --dir app/styles -w",
     "build:css": "postcss styles --base styles --dir app/styles --env production",
