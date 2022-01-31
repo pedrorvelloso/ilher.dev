@@ -9,7 +9,7 @@ import { HomePost } from '~/types'
 
 import { formatDate } from '~/utils/dates'
 import { getImageProps } from '~/utils/imageBuilder'
-import { getLatestPosts } from '~/utils/mdx.server'
+import { getLatestPosts } from '~/server/mdx/mdx.server'
 
 export const loader: LoaderFunction = async () => {
   const posts = await getLatestPosts()

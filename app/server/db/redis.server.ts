@@ -35,12 +35,12 @@ async function get<Value = unknown>(key: string) {
   }
 }
 
-function set<Value>(key: string, value: Value): Promise<'OK'> {
-  return new Promise((resolve) => {
-    redisClient.set(key, JSON.stringify(value)).then((result) => {
-      if (result) resolve(result)
-    })
-  })
+async function set<Value>(key: string, value: Value): Promise<'OK'> {
+  const result = await redisClient.set(key, JSON.stringify(value))
+
+  if (!result) throw new Error('not able to set value')
+
+  return result
 }
 
 async function del(key: string) {

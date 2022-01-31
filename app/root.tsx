@@ -16,10 +16,10 @@ import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
 import noScriptStyles from './styles/no-script.css'
 
-import { Layout } from './components/layout'
-
-import { getThemeSession } from './sessions/theme.server'
+import { getThemeSession } from './server/sessions/theme.server'
 import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
+
+import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
 
 export const links: LinksFunction = () => {

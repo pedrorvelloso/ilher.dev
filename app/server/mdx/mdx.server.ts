@@ -2,11 +2,12 @@ import { bundleMDX } from 'mdx-bundler'
 import { buildUrl } from 'cloudinary-build-url'
 import readingTime from 'reading-time'
 
-import { rehypeMetaAttrs } from './rehypePlugins.server'
-import { redisCache } from './redis.server'
-import { HOME_POSTS } from './cacheKeys'
+import { HOME_POSTS } from '~/utils/cacheKeys'
 
 import { HomePost, Post } from '~/types'
+
+import { rehypeMetaAttrs } from './rehypePlugins.server'
+import { redisCache } from '../db/redis.server'
 
 export const compileMdx = async (content: string) => {
   const { code, frontmatter } = await bundleMDX({

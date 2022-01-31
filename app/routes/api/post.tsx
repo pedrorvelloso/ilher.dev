@@ -1,6 +1,7 @@
 import type { ActionFunction } from 'remix'
 import { json } from 'remix'
-import { redisCache } from '~/utils/redis.server'
+
+import { redisCache } from '~/server/db/redis.server'
 import { POST_KEY, HOME_POSTS } from '~/utils/cacheKeys'
 
 export const action: ActionFunction = async ({ request }) => {

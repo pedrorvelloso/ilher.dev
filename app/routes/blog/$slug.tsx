@@ -8,7 +8,7 @@ import parseRange from 'parse-numeric-range'
 import prismStyles from '~/styles/prism.css'
 import postStyles from '~/styles/routes/post.css'
 
-import { getPost } from '~/utils/mdx.server'
+import { getPost } from '~/server/mdx/mdx.server'
 import { imageProps } from '~/utils/imageBuilder'
 import { formatDate } from '~/utils/dates'
 

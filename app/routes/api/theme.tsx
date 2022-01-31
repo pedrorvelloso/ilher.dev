@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from 'remix'
 import { json, redirect } from 'remix'
 
 import { Theme } from '~/providers/theme-provider'
-import { getThemeSession } from '~/sessions/theme.server'
+import { getThemeSession } from '~/server/sessions/theme.server'
 
 const isTheme = (value: unknown): value is Theme => {
   return typeof value === 'string' && (value === 'dark' || value === 'light')

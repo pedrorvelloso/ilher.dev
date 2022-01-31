@@ -24,7 +24,7 @@ function main() {
 
   const data = { content: file, slug }
 
-  fetch(`${postTo}/actions/post`, {
+  fetch(`${postTo}/api/post`, {
     body: JSON.stringify(data),
     method: 'POST',
     headers: { 'Content-Type': 'application/json', auth: authSecret },

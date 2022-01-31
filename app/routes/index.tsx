@@ -9,7 +9,7 @@ import { BlogSection } from '~/components/sections/blog-section'
 import indexStyles from '~/styles/routes/index.css'
 import prismtyles from '~/styles/prism.css'
 
-import { getHomePosts } from '~/utils/mdx.server'
+import { getHomePosts } from '~/server/mdx/mdx.server'
 import { HomePost } from '~/types'
 
 type IndexLoaderData = {
