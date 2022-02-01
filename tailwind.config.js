@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
   mode: 'jit',
-  purge: ['./app/**/*.{js,ts,tsx}'],
+  content: ['./app/**/*.{js,ts,tsx}'],
   darkMode: 'class',
   theme: {
     extend: {

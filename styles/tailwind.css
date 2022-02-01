@@ -3,18 +3,16 @@
 @tailwind utilities;
 
 @layer utilities {
-  @variants responsive {
-    .avatar-lg {
-      @apply w-[226px] h-[226px];
-    }
+  .avatar-lg {
+    @apply w-[226px] h-[226px];
+  }
 
-    .avatar-sm {
-      @apply w-[116px] h-[116px];
-    }
+  .avatar-sm {
+    @apply w-[116px] h-[116px];
+  }
 
-    .avatar-xs {
-      @apply w-[82px] h-[82px];
-    }
+  .avatar-xs {
+    @apply w-[82px] h-[82px];
   }
 }
 
