@@ -6,7 +6,6 @@ import { HeroSection } from '~/components/sections/hero-section'
 import { StackSection } from '~/components/sections/stack-section'
 import { BlogSection } from '~/components/sections/blog-section'
 
-import indexStyles from '~/styles/routes/index.css'
 import prismtyles from '~/styles/prism.css'
 
 import { getHomePosts } from '~/server/mdx/mdx.server'
@@ -17,7 +16,6 @@ type IndexLoaderData = {
 }
 
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: indexStyles },
   { rel: 'stylesheet', href: prismtyles },
 ]
 

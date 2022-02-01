@@ -36,6 +36,7 @@ export const SyntaxHighlighter: React.FC<SyntaxHighlighterProps> = ({
       language={language}
       useInlineStyles={useInlineStyles}
       showLineNumbers={showLineNumbers}
+      className="code code__scroll p-4"
       wrapLines
       lineProps={(lineNumber) => {
         const defaultStyle = {

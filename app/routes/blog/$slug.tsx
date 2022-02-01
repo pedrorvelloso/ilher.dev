@@ -6,7 +6,6 @@ import { getMDXComponent } from 'mdx-bundler/client'
 import parseRange from 'parse-numeric-range'
 
 import prismStyles from '~/styles/prism.css'
-import postStyles from '~/styles/routes/post.css'
 
 import { getPost } from '~/server/mdx/mdx.server'
 import { imageProps } from '~/utils/imageBuilder'
@@ -20,7 +19,6 @@ import { NavigationButton } from '~/components/navigation-button'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismStyles },
-  { rel: 'stylesheet', href: postStyles },
 ]
 
 export const meta: MetaFunction = ({ data }) => ({
