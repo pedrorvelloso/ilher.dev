@@ -1,3 +1,5 @@
+import slugify from 'slugify'
+
 export const getEnv = (key: string, devValue = `${key}-dev`) => {
   let value = devValue
   const env = process.env[key]
@@ -8,3 +10,5 @@ export const getEnv = (key: string, devValue = `${key}-dev`) => {
 
   return value
 }
+
+export const toSlug = (value: string) => slugify(value.toLowerCase())

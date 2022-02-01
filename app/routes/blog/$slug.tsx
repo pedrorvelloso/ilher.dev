@@ -8,14 +8,18 @@ import parseRange from 'parse-numeric-range'
 import prismStyles from '~/styles/prism.css'
 
 import { getPost } from '~/server/mdx/mdx.server'
+
 import { imageProps } from '~/utils/imageBuilder'
 import { formatDate } from '~/utils/dates'
+import { toSlug } from '~/utils/misc'
 
 import { SyntaxHighlighter } from '~/components/syntax-highlighter'
 import { Image } from '~/components/image'
 import { H1, H2, Paragraph } from '~/components/typograph'
 import { Section } from '~/components/section'
 import { NavigationButton } from '~/components/navigation-button'
+import { PostAnchor } from '~/components/post-anchor'
+import { Anchor } from '~/components/anchor'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismStyles },
@@ -42,8 +46,15 @@ const components = {
 
     if (match) {
       const lines = props.lines ? parseRange(props.lines) : undefined
+
       return (
-        <SyntaxHighlighter language={match[1]} {...props} lines={lines}>
+        <SyntaxHighlighter
+          language={match[1]}
+          data-filename={props.filename}
+          data-language={match[1]}
+          lines={lines}
+          className={props.className}
+        >
           {String(props.children).replace(/\n$/, '')}
         </SyntaxHighlighter>
       )
@@ -59,6 +70,15 @@ const components = {
 
     return <pre {...props} />
   },
+  h1: (props) => (
+    <PostAnchor goTo={toSlug(props.children)}>{props.children}</PostAnchor>
+  ),
+  h2: (props) => (
+    <PostAnchor goTo={toSlug(props.children)} as="h2">
+      {props.children}
+    </PostAnchor>
+  ),
+  a: (props) => <Anchor className="text-accent" {...props} external />,
 }
 
 type BlogPostLoaderData = {
