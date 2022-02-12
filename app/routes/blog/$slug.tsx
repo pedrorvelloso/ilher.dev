@@ -1,13 +1,19 @@
 import { useMemo } from 'react'
 
-import type { LoaderFunction, LinksFunction, MetaFunction } from 'remix'
-import { useLoaderData, json } from 'remix'
+import {
+  LoaderFunction,
+  LinksFunction,
+  MetaFunction,
+  useCatch,
+  useLoaderData,
+  json,
+} from 'remix'
 import { getMDXComponent } from 'mdx-bundler/client'
 import parseRange from 'parse-numeric-range'
 
 import prismStyles from '~/styles/prism.css'
 
-import { getPost } from '~/server/mdx/mdx.server'
+import { getNote } from '~/server/mdx/mdx.server'
 
 import { imageProps } from '~/utils/imageBuilder'
 import { formatDate } from '~/utils/dates'
@@ -15,27 +21,33 @@ import { toSlug } from '~/utils/misc'
 
 import { SyntaxHighlighter } from '~/components/syntax-highlighter'
 import { Image } from '~/components/image'
-import { H1, H2, Paragraph } from '~/components/typograph'
+import { Paragraph } from '~/components/typograph'
 import { Section } from '~/components/section'
 import { NavigationButton } from '~/components/navigation-button'
 import { PostAnchor } from '~/components/post-anchor'
 import { Anchor } from '~/components/anchor'
+import { cn } from '~/server/collectedNotes/index.server'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismStyles },
 ]
 
-export const meta: MetaFunction = ({ data }) => ({
-  title: data.frontmatter.title,
-  description: data.frontmatter.description,
-})
+export const meta: MetaFunction = ({ data }) => {
+  if (!data) return { title: 'Not found', description: 'Note not found' }
+
+  return {
+    title: data.frontmatter.title,
+    description: data.frontmatter.description,
+  }
+}
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const result = await getPost(params.slug as string)
+  const note = await cn.body('ilherdev', params.slug as string)
 
-  if (!result) throw json({ message: 'post not found' }, { status: 404 })
+  if (Object.keys(note).length === 0)
+    throw new Response('Not Found', { status: 404 })
 
-  const { code, frontmatter } = result
+  const { code, frontmatter } = await getNote(note.note.body)
 
   return json({ code, frontmatter })
 }
@@ -79,6 +91,7 @@ const components = {
     </PostAnchor>
   ),
   a: (props) => <Anchor className="text-accent" {...props} external />,
+  hr: () => <div className="mb-12" />,
 }
 
 type BlogPostLoaderData = {
@@ -108,8 +121,8 @@ const BlogPost = () => {
         </NavigationButton>
       </Section>
       <section className="lg:max-w-screen-xl lg:mx-auto lg:px-12 py-12">
-        <div className="lg:px-12 mx-10vw lg:mx-0 mb-16">
-          <H1 className="mb-4">{data.frontmatter.title}</H1>
+        <div className="lg:px-12 mx-10vw lg:mx-0 mb-10">
+          {/* <H1 className="mb-4">{data.frontmatter.title}</H1> */}
           <Image
             {...imageProps({
               id: data.frontmatter.bannerId,
@@ -123,7 +136,7 @@ const BlogPost = () => {
             objectPosition="center"
             outterClassName="aspect-h-4 aspect-w-3 md:aspect-w-16 md:aspect-h-8 mb-4"
           />
-          <H2>{data.frontmatter.description}</H2>
+          {/* <H2>{data.frontmatter.description}</H2> */}
           <Paragraph bigger={false}>
             {formatDate(data.frontmatter.date)} -{' '}
             <span className="mr-2">{data.frontmatter.readTime}</span>
@@ -139,7 +152,9 @@ const BlogPost = () => {
 }
 
 export const CatchBoundary = () => {
-  // const caught = useCatch()
+  const caught = useCatch()
+
+  console.log({ caught })
 
   return <h1>oops</h1>
 }

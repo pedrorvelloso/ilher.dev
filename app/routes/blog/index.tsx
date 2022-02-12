@@ -9,12 +9,12 @@ import { HomePost } from '~/types'
 
 import { formatDate } from '~/utils/dates'
 import { getImageProps } from '~/utils/imageBuilder'
-import { getLatestPosts } from '~/server/mdx/mdx.server'
+import { getLatestNotes } from '~/server/mdx/mdx.server'
 
 export const loader: LoaderFunction = async () => {
-  const posts = await getLatestPosts()
+  const notes = await getLatestNotes()
 
-  return json<Array<HomePost>>(posts)
+  return json<Array<HomePost>>(notes)
 }
 
 const Blog = () => {

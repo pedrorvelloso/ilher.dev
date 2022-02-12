@@ -1,5 +1,8 @@
-import type { LoaderFunction, LinksFunction } from 'remix'
+import type { LoaderFunction, LinksFunction, HeadersFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
+
+import { getLatestNotes } from '~/server/mdx/mdx.server'
+import { HomePost } from '~/types'
 
 import { AboutMeSection } from '~/components/sections/about-me-section'
 import { HeroSection } from '~/components/sections/hero-section'
@@ -8,21 +11,24 @@ import { BlogSection } from '~/components/sections/blog-section'
 
 import prismtyles from '~/styles/prism.css'
 
-import { getHomePosts } from '~/server/mdx/mdx.server'
-import { HomePost } from '~/types'
-
 type IndexLoaderData = {
-  posts: Array<HomePost>
+  notes: Array<HomePost>
 }
+
+const SECOND_PER_YEAR = 3.154e7
+
+export const headers: HeadersFunction = () => ({
+  'Cache-Control': `stale-while-revalidate=${SECOND_PER_YEAR}, s-maxage=1`,
+})
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismtyles },
 ]
 
 export const loader: LoaderFunction = async () => {
-  const posts = await getHomePosts()
+  const notes = await getLatestNotes()
 
-  return json<IndexLoaderData>({ posts })
+  return json<IndexLoaderData>({ notes: notes.splice(0, 3) })
 }
 
 const Index = () => {
@@ -33,7 +39,7 @@ const Index = () => {
       <HeroSection />
       <StackSection />
       <AboutMeSection />
-      <BlogSection posts={data.posts} />
+      <BlogSection posts={data.notes} />
     </>
   )
 }
