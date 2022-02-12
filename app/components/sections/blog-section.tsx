@@ -16,7 +16,7 @@ export const BlogSection = ({ posts }: BlogSectionProps) => {
   return (
     <Section className="pb-12">
       <div className="flex gap-6 items-center justify-between lg:justify-start">
-        <H1 className="mb-0">Blog</H1>
+        <H1 className="mb-0">Notes</H1>
         <NavigationButton href="/blog" direction="foward">
           See more
         </NavigationButton>
