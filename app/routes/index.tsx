@@ -1,7 +1,8 @@
-import type { LoaderFunction, LinksFunction, HeadersFunction } from 'remix'
+import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
 import { getLatestNotes } from '~/server/mdx/mdx.server'
+import { getHeaders } from '~/utils/headers'
 import { HomePost } from '~/types'
 
 import { AboutMeSection } from '~/components/sections/about-me-section'
@@ -17,9 +18,7 @@ type IndexLoaderData = {
 
 const SECOND_PER_YEAR = 3.154e7
 
-export const headers: HeadersFunction = () => ({
-  'Cache-Control': `stale-while-revalidate=${SECOND_PER_YEAR}, s-maxage=1`,
-})
+export const headers = getHeaders
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismtyles },
@@ -28,7 +27,15 @@ export const links: LinksFunction = () => [
 export const loader: LoaderFunction = async () => {
   const notes = await getLatestNotes()
 
-  return json<IndexLoaderData>({ notes: notes.splice(0, 3) })
+  return json<IndexLoaderData>(
+    { notes: notes.splice(0, 3) },
+    {
+      headers: {
+        'Cache-Control': `public, stale-while-revalidate=${SECOND_PER_YEAR}, s-maxage=1`,
+        Vary: 'Cookie',
+      },
+    },
+  )
 }
 
 const Index = () => {

@@ -15,7 +15,12 @@ export const PostPreview = ({
   url,
 }: PostPreviewProps) => {
   return (
-    <Anchor href={`/blog${url}`} underline={false} className="group relative">
+    <Anchor
+      href={`/blog${url}`}
+      underline={false}
+      className="group relative"
+      prefetch="intent"
+    >
       <div className="w-full transition-all rounded-lg group-hover:opacity-50">
         {image}
       </div>
