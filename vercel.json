@@ -1,8 +1,7 @@
 {
   "build": {
     "env": {
-      "ENABLE_FILE_SYSTEM_API": "1",
-      "FORCE_RUNTIME_TAG": "canary"
+      "ENABLE_FILE_SYSTEM_API": "1"
     }
   }
 }
