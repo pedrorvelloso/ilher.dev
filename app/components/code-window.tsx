@@ -1,4 +1,4 @@
-import { Code } from './code'
+import { SyntaxHighlighter } from './syntax-highlighter'
 
 interface CodeWindowProps {
   title: string
@@ -19,7 +19,7 @@ export const CodeWindow = ({ title, code }: CodeWindowProps) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <Code>{code}</Code>
+        <SyntaxHighlighter language="json">{code}</SyntaxHighlighter>
       </div>
     </div>
   )

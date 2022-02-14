@@ -46,7 +46,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     if (!theme) return
     themeFetcherRef.current.submit(
       { theme },
-      { action: 'actions/theme', method: 'post' },
+      { action: 'api/theme', method: 'post' },
     )
   }, [theme])
 

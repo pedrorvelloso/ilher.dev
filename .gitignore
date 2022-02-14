@@ -5,5 +5,11 @@ node_modules
 /public/build
 /build
 /api/build
+/api/_build
+
 
 /app/styles/**/*.css
+
+.env
+
+yarn-error.log

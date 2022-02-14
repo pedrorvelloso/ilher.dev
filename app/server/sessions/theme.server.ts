@@ -1,12 +1,13 @@
 import { createCookieSessionStorage } from 'remix'
 
 import { Theme } from '~/providers/theme-provider'
+import { getEnv } from '~/utils/misc'
 
 const themeStorage = createCookieSessionStorage({
   cookie: {
     name: '@ilher/theme',
     secure: true,
-    secrets: ['le_secret'],
+    secrets: [getEnv('SESSION_SECRET')],
     sameSite: 'lax',
     path: '/',
     expires: new Date('2088-10-18'),

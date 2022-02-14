@@ -16,10 +16,11 @@ import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
 import noScriptStyles from './styles/no-script.css'
 
-import { Layout } from './components/layout'
-
-import { getThemeSession } from './sessions/theme.server'
+import { getThemeSession } from './server/sessions/theme.server'
 import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
+
+import { Layout } from './components/layout'
+import { ErrorPage } from './components/error'
 
 export const links: LinksFunction = () => {
   return [
@@ -57,15 +58,24 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 }
 
-export default function App() {
+function App() {
+  const { theme } = useTheme()
+
+  return (
+    <Document theme={theme}>
+      <Layout>
+        <Outlet />
+      </Layout>
+    </Document>
+  )
+}
+
+export default function AppWithProviders() {
   const data = useLoaderData<RootLoaderData>()
+
   return (
     <ThemeProvider initialTheme={data.theme}>
-      <Document>
-        <Layout>
-          <Outlet />
-        </Layout>
-      </Document>
+      <App />
     </ThemeProvider>
   )
 }
@@ -73,12 +83,12 @@ export default function App() {
 function Document({
   children,
   title,
+  theme = 'dark',
 }: {
   children: React.ReactNode
   title?: string
+  theme?: Theme
 }) {
-  const { theme } = useTheme()
-
   return (
     <html lang="en">
       <head>
@@ -116,9 +126,7 @@ export function CatchBoundary() {
       )
       break
     case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      )
+      message = <p>Page not found</p>
       break
 
     default:
@@ -126,12 +134,13 @@ export function CatchBoundary() {
   }
 
   return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
-      <h1>
-        {caught.status}: {caught.statusText}
-      </h1>
-      {message}
-    </Document>
+    <ThemeProvider initialTheme="dark">
+      <Document title={`${caught.status} - ${caught.statusText}`}>
+        <Layout>
+          <ErrorPage title={message} description="Ooops" />
+        </Layout>
+      </Document>
+    </ThemeProvider>
   )
 }
 
@@ -139,15 +148,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error)
   return (
     <Document title="Error!">
-      <div>
-        <h1>There was an error</h1>
-        <p>{error.message}</p>
-        <hr />
-        <p>
-          Hey, developer, you should replace this with what you want your users
-          to see.
-        </p>
-      </div>
+      <ErrorPage title="Something went wrong!" description="Oooops" />
     </Document>
   )
 }

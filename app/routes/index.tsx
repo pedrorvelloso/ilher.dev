@@ -1,39 +1,38 @@
 import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
+import { getLatestNotes } from '~/server/mdx/mdx.server'
+import { getHeaders, Swr } from '~/utils/headers'
+import { HomePost } from '~/types'
+
 import { AboutMeSection } from '~/components/sections/about-me-section'
 import { HeroSection } from '~/components/sections/hero-section'
 import { StackSection } from '~/components/sections/stack-section'
+import { BlogSection } from '~/components/sections/blog-section'
 
-import hljsStyles from '~/styles/hljs.css'
-
-import { highlight } from '~/utils/hljs.server'
-import {
-  frontendStack as frontendStackCode,
-  backendStack as backendStackCode,
-  infraStack as infraStackCode,
-} from '~/utils/stack'
+import prismtyles from '~/styles/prism.css'
 
 type IndexLoaderData = {
-  stack: {
-    frontendStack: string
-    backendStack: string
-    infraStack: string
-  }
+  notes: Array<HomePost>
 }
 
+export const headers = getHeaders
+
 export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: hljsStyles },
+  { rel: 'stylesheet', href: prismtyles },
 ]
 
-export const loader: LoaderFunction = () => {
-  const frontendStack = highlight(frontendStackCode, 'json')
-  const backendStack = highlight(backendStackCode, 'json')
-  const infraStack = highlight(infraStackCode, 'json')
+export const loader: LoaderFunction = async () => {
+  const notes = await getLatestNotes()
 
-  const stack = { frontendStack, backendStack, infraStack }
-
-  return json({ stack })
+  return json<IndexLoaderData>(
+    { notes: notes.splice(0, 3) },
+    {
+      headers: {
+        ...Swr,
+      },
+    },
+  )
 }
 
 const Index = () => {
@@ -42,8 +41,9 @@ const Index = () => {
   return (
     <>
       <HeroSection />
-      <StackSection stack={data.stack} />
+      <StackSection />
       <AboutMeSection />
+      <BlogSection posts={data.notes} />
     </>
   )
 }

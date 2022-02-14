@@ -32,5 +32,3 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
     </Anchor>
   )
 }
-
-export default NavigationButton
