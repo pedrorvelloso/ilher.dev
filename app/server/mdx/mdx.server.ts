@@ -35,6 +35,7 @@ export const getNote = async (content: string) => {
 }
 
 export const getLatestNotes = async () => {
+  console.log('Fetching latest Notes')
   const notes = await cn.latestNotes(sitePath, 1, 'public')
 
   const loadedNotes = await Promise.all(

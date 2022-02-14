@@ -17,7 +17,7 @@ import { imageProps } from '~/utils/imageBuilder'
 import { formatDate } from '~/utils/dates'
 import { toSlug } from '~/utils/misc'
 
-import { getHeaders, Swr } from '~/utils/headers'
+import { getHeaders } from '~/utils/headers'
 import { cn } from '~/server/collectedNotes/index.server'
 
 import { SyntaxHighlighter } from '~/components/syntax-highlighter'
@@ -56,7 +56,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     { code, frontmatter },
     {
       headers: {
-        ...Swr,
+        'Cache-Control': 'max-age=180000',
       },
     },
   )
