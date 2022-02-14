@@ -11,13 +11,14 @@ import {
 import { getMDXComponent } from 'mdx-bundler/client'
 import parseRange from 'parse-numeric-range'
 
-import prismStyles from '~/styles/prism.css'
-
 import { getNote } from '~/server/mdx/mdx.server'
 
 import { imageProps } from '~/utils/imageBuilder'
 import { formatDate } from '~/utils/dates'
 import { toSlug } from '~/utils/misc'
+
+import { getHeaders, Swr } from '~/utils/headers'
+import { cn } from '~/server/collectedNotes/index.server'
 
 import { SyntaxHighlighter } from '~/components/syntax-highlighter'
 import { Image } from '~/components/image'
@@ -26,7 +27,7 @@ import { Section } from '~/components/section'
 import { NavigationButton } from '~/components/navigation-button'
 import { PostAnchor } from '~/components/post-anchor'
 import { Anchor } from '~/components/anchor'
-import { cn } from '~/server/collectedNotes/index.server'
+import prismStyles from '~/styles/prism.css'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: prismStyles },
@@ -41,6 +42,8 @@ export const meta: MetaFunction = ({ data }) => {
   }
 }
 
+export const headers = getHeaders
+
 export const loader: LoaderFunction = async ({ params }) => {
   const note = await cn.body('ilherdev', params.slug as string)
 
@@ -49,7 +52,14 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const { code, frontmatter } = await getNote(note.note.body)
 
-  return json({ code, frontmatter })
+  return json(
+    { code, frontmatter },
+    {
+      headers: {
+        ...Swr,
+      },
+    },
+  )
 }
 
 const components = {

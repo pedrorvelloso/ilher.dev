@@ -2,7 +2,7 @@ import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
 import { getLatestNotes } from '~/server/mdx/mdx.server'
-import { getHeaders } from '~/utils/headers'
+import { getHeaders, Swr } from '~/utils/headers'
 import { HomePost } from '~/types'
 
 import { AboutMeSection } from '~/components/sections/about-me-section'
@@ -15,8 +15,6 @@ import prismtyles from '~/styles/prism.css'
 type IndexLoaderData = {
   notes: Array<HomePost>
 }
-
-const SECOND_PER_YEAR = 3.154e7
 
 export const headers = getHeaders
 
@@ -31,8 +29,7 @@ export const loader: LoaderFunction = async () => {
     { notes: notes.splice(0, 3) },
     {
       headers: {
-        'Cache-Control': `public, stale-while-revalidate=${SECOND_PER_YEAR}, s-maxage=1`,
-        Vary: 'Cookie',
+        ...Swr,
       },
     },
   )
