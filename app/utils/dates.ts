@@ -5,6 +5,6 @@ export function formatDate(dateString: string) {
     add(parseISO(dateString), {
       minutes: new Date().getTimezoneOffset(),
     }),
-    'PPP',
+    'PP',
   )
 }

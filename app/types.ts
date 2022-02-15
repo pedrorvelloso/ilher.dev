@@ -13,3 +13,11 @@ export interface Post {
 export type HomePost = Post & {
   url: string
 }
+
+export interface NoteInfo {
+  title: string
+  headline: string
+  createdAt: string
+  id: number
+  path: string
+}

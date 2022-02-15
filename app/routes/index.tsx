@@ -3,17 +3,17 @@ import { json, useLoaderData } from 'remix'
 
 import { getLatestNotes } from '~/server/mdx/mdx.server'
 import { getHeaders, Swr } from '~/utils/headers'
-import { HomePost } from '~/types'
+import { NoteInfo } from '~/types'
 
 import { AboutMeSection } from '~/components/sections/about-me-section'
 import { HeroSection } from '~/components/sections/hero-section'
 import { StackSection } from '~/components/sections/stack-section'
-import { BlogSection } from '~/components/sections/blog-section'
 
 import prismtyles from '~/styles/prism.css'
+import { NotesSection } from '~/components/sections/notes-section'
 
 type IndexLoaderData = {
-  notes: Array<HomePost>
+  notes: Array<NoteInfo>
 }
 
 export const headers = getHeaders
@@ -36,14 +36,14 @@ export const loader: LoaderFunction = async () => {
 }
 
 const Index = () => {
-  const data = useLoaderData<IndexLoaderData>()
+  const { notes } = useLoaderData<IndexLoaderData>()
 
   return (
     <>
       <HeroSection />
       <StackSection />
       <AboutMeSection />
-      <BlogSection posts={data.notes} />
+      <NotesSection notes={notes} />
     </>
   )
 }
