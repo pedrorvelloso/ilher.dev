@@ -1,7 +1,7 @@
 import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
-import { getLatestNotes } from '~/server/mdx/mdx.server'
+import { getLatestNotes } from '~/server/collectedNotes.server'
 import { getHeaders, Swr } from '~/utils/headers'
 import { NoteInfo } from '~/types'
 
