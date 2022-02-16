@@ -61,7 +61,7 @@ type RootLoaderData = {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  console.log(request.headers[':authority'])
+  console.log(request.headers.get('host'))
   const themeSession = await getThemeSession(request)
 
   return {
