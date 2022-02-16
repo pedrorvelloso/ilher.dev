@@ -10,7 +10,7 @@ import {
   useLocation,
   useLoaderData,
 } from 'remix'
-import type { LinksFunction, LoaderFunction } from 'remix'
+import type { LinksFunction, LoaderFunction, MetaFunction } from 'remix'
 
 import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
@@ -18,6 +18,8 @@ import noScriptStyles from './styles/no-script.css'
 
 import { getThemeSession } from './server/sessions/theme.server'
 import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
+
+import { seoMeta } from './utils/seo'
 
 import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
@@ -46,11 +48,20 @@ export const links: LinksFunction = () => {
   ]
 }
 
+export const meta: MetaFunction = () => {
+  return {
+    ...seoMeta({
+      keywords: 'React, Remix, Webdev, Javascript',
+    }),
+  }
+}
+
 type RootLoaderData = {
   theme: Theme
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
+  console.log(request.headers[':authority'])
   const themeSession = await getThemeSession(request)
 
   return {
