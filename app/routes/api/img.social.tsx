@@ -15,8 +15,8 @@ export const loader: LoaderFunction = async () => {
   const socialImage = await fetch(
     'https://res.cloudinary.com/ilher-dev/image/upload/v1645041698/social.png',
   )
-  const blob = socialImage.body
-  return new Response(blob, {
+  const blob = await socialImage.arrayBuffer()
+  return new Response(Buffer.from(blob), {
     headers: {
       'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=2419200',
