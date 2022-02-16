@@ -1,20 +1,40 @@
 import type { LoaderFunction } from 'remix'
-// import { imageProps } from '~/utils/imageBuilder'
+import { imageProps } from '~/utils/imageBuilder'
 
-export const loader: LoaderFunction = async () => {
-  // const a = imageProps({
-  //   id: 'social',
-  //   transformations: {
-  //     fetchFormat: 'auto',
-  //     quality: 'auto',
-  //     overlay: 'img:https://avatars.githubusercontent.com/u/20671359?v=4',
-  //   },
-  // })
-  // console.log(a)
+function doubleEncode(s: string) {
+  return encodeURIComponent(encodeURIComponent(s))
+}
 
-  const socialImage = await fetch(
-    'https://res.cloudinary.com/ilher-dev/image/upload/v1645041698/social.png',
-  )
+export const loader: LoaderFunction = async ({ request }) => {
+  const requestUrl = new URL(request.url)
+  const text = requestUrl.searchParams.get('text')
+
+  const { src } = imageProps({
+    id: 'social',
+    transformations: {
+      chaining: [
+        {
+          resize: {
+            type: 'fit',
+            width: 1786,
+            height: 656,
+          },
+          gravity: 'north_west',
+          overlay: `text:Arial_144_bold:${doubleEncode(
+            text ?? '-',
+          )},co_rgb:D1D5DB`,
+          position: {
+            x: 307,
+            y: 200,
+          },
+        },
+      ],
+    },
+  })
+
+  console.log(src)
+
+  const socialImage = await fetch(src)
   const blob = await socialImage.arrayBuffer()
   return new Response(Buffer.from(blob), {
     headers: {
