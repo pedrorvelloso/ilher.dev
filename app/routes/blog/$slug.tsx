@@ -7,7 +7,7 @@ import { getNote } from '~/server/collectedNotes.server'
 import proseStyles from '~/styles/prose.css'
 import highlightStyles from '~/styles/highlight.css'
 
-import { Swr } from '~/utils/headers'
+import { getHeaders, Swr } from '~/utils/headers'
 
 import { Section } from '~/components/section'
 
@@ -19,6 +19,8 @@ export const links: LinksFunction = () => [
 type BlogPostLoaderData = {
   body: HTML
 }
+
+export const headers = getHeaders
 
 export const loader: LoaderFunction = async ({ params }) => {
   const note = await getNote(params.slug as string)
