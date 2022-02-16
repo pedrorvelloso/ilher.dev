@@ -32,8 +32,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
   })
 
-  console.log(src)
-
   const socialImage = await fetch(src)
   const blob = await socialImage.arrayBuffer()
   return new Response(Buffer.from(blob), {
