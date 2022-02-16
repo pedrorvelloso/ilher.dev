@@ -2,14 +2,14 @@ interface GetSeoOptions {
   title?: string
   description?: string
   keywords?: string
-  url?: string
+  url: string
 }
 
 export const seoMeta = ({
   title = 'Pedro Reis — Fullstack Developer',
   description = 'Pedro Reis personal website',
   keywords = '',
-  url = 'http://localhost:3000',
+  url,
 }: GetSeoOptions) => ({
   title,
   description,
