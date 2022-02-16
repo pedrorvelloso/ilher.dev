@@ -9,7 +9,7 @@ export const AboutMeSection = () => {
   return (
     <Section featured>
       <div className="flex flex-col lg:flex-row justify-between">
-        <div className="max-w-2xl">
+        <div className="max-w-xl">
           <H3>Heeeeey, listen! 🧚 </H3>
           <H1 className="mb-4">Hi, I&apos;m Pedro!</H1>
           <Paragraph>

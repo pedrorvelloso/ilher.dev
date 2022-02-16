@@ -4,6 +4,7 @@ import { FaMoon as MoonIcon, FaSun as SunIcon } from 'react-icons/fa'
 import { useTheme } from '~/providers/theme-provider'
 
 import { Anchor } from '~/components/anchor'
+import { Section } from './section'
 
 const ThemeChanger = () => {
   const { theme, changeTheme } = useTheme()
@@ -46,8 +47,8 @@ const ThemeChanger = () => {
 
 export const Navbar = () => {
   return (
-    <div className="px-5vw py-4 lg:py-12">
-      <nav className="text-black dark:text-white max-w-8xl flex justify-between items-center mx-auto">
+    <Section className="py-4 lg:py-12" as="div">
+      <nav className="text-black dark:text-white flex justify-between items-center mx-auto">
         <Anchor
           href="/"
           underline
@@ -69,6 +70,6 @@ export const Navbar = () => {
           </span>
         </div>
       </nav>
-    </div>
+    </Section>
   )
 }

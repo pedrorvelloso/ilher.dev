@@ -54,6 +54,28 @@
     @apply bg-gray-700 rounded-sm;
   }
 
+  /* CARD */
+  .card {
+    @apply transition-colors;
+  }
+
+  .card:before {
+    content: ' ';
+    position: absolute;
+    z-index: 0;
+    display: block;
+    inset: -15px;
+    opacity: 0;
+
+    @apply bg-accent dark:bg-slate-500 rounded-lg transition-all;
+  }
+
+  .card:hover:before {
+    @apply opacity-10;
+  }
+
+  /* POST */
+
   .post {
     @apply w-full text-gray-800 dark:text-blueGray-500;
   }

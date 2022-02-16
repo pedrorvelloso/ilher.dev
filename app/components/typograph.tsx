@@ -10,7 +10,7 @@ const H1: React.FC<HeadingProps> = ({ className, id, children }) => {
     <h1
       id={id}
       className={clsx(
-        'text-2xl lg:text-4xl text-gray-800 dark:text-gray-100 font-bold',
+        'text-2xl lg:text-4xl text-gray-800 dark:text-gray-300 font-bold',
         className,
       )}
     >
@@ -40,21 +40,19 @@ const H3: React.FC<HeadingProps> = ({ className, id, children }) => {
 
 interface ParagraphProps {
   className?: string
-  bigger?: boolean
   isDescription?: boolean
 }
 
 export const Paragraph: React.FC<ParagraphProps> = ({
   className,
-  bigger = true,
   isDescription = false,
   children,
 }) => {
   return (
     <p
-      className={clsx(className, 'text-lg mb-5', {
-        'lg:text-xl': bigger,
-        'text-gray-800 dark:text-blueGray-500': !isDescription,
+      className={clsx(className, 'text-lg mb-5 leading-relaxed', {
+        // 'lg:text-xl': bigger,
+        'text-gray-800 dark:text-gray-300': !isDescription,
         'text-gray-600': isDescription,
       })}
     >

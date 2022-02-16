@@ -2,7 +2,7 @@ import { bundleMDX } from 'mdx-bundler'
 import { buildUrl } from 'cloudinary-build-url'
 import readingTime from 'reading-time'
 
-import { Post } from '~/types'
+import { formatDate } from '~/utils/dates'
 
 import { cn, sitePath } from '../collectedNotes/index.server'
 
@@ -37,22 +37,13 @@ export const getNote = async (content: string) => {
 export const getLatestNotes = async () => {
   const notes = await cn.latestNotes(sitePath, 1, 'public')
 
-  const loadedNotes = await Promise.all(
-    notes.map(async (p) => {
-      const { frontmatter, readTime } = await compileMdx(p.body)
-      frontmatter.blurImage = await getBlurDataUrl(frontmatter.bannerId)
-
-      const post = frontmatter as Post
-
-      return {
-        ...post,
-        url: `/${p.path}`,
-        readTime,
-      }
-    }),
-  )
-
-  return loadedNotes
+  return notes.map((note) => ({
+    title: note.title,
+    headline: note.headline.split('\n')[0],
+    createdAt: formatDate(note.created_at),
+    id: note.id,
+    path: note.path,
+  }))
 }
 
 const getDataUrlForImage = async (imageUrl: string) => {
