@@ -22,5 +22,5 @@ export const Swr = {
 
 export const MaxAge = {
   'Cache-Control': 'public, max-age=3600',
-  Vary: 'Cookie',
+  Vary: 'cookie',
 }
