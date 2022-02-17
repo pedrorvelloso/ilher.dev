@@ -8,7 +8,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const text = requestUrl.searchParams.get('text')
 
   const { src } = imageBuilder({
-    id: 'social',
+    id: 'social-image',
     transformations: {
       chaining: [
         {
