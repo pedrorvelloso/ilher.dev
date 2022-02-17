@@ -31,5 +31,10 @@ export const getNote = async (path: string) => {
     n.created_at,
   )}</span>`
 
-  return { body: splittedBody.join('\n') }
+  return {
+    body: splittedBody.join('\n'),
+    title: n.title,
+    headline: n.headline.split('\n')[0],
+    path: n.path,
+  }
 }

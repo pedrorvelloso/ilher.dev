@@ -9,8 +9,9 @@ import {
   useCatch,
   useLocation,
   useLoaderData,
+  json,
 } from 'remix'
-import type { LinksFunction, LoaderFunction } from 'remix'
+import type { LinksFunction, LoaderFunction, MetaFunction } from 'remix'
 
 import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
@@ -18,6 +19,9 @@ import noScriptStyles from './styles/no-script.css'
 
 import { getThemeSession } from './server/sessions/theme.server'
 import { Theme, ThemeProvider, useTheme } from './providers/theme-provider'
+
+import { seoMeta } from './utils/seo'
+import { getDomainUrl, getUrl } from './utils/misc'
 
 import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
@@ -46,16 +50,36 @@ export const links: LinksFunction = () => {
   ]
 }
 
-type RootLoaderData = {
+export type RootLoaderData = {
   theme: Theme
+  url: {
+    origin: string
+    path: string
+  }
+}
+
+export const meta: MetaFunction = ({ data }) => {
+  const { url } = data as RootLoaderData
+
+  return {
+    ...seoMeta({
+      keywords: 'React, Remix, Webdev, Javascript',
+      url: getUrl(url),
+      origin: url.origin,
+    }),
+  }
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
   const themeSession = await getThemeSession(request)
 
-  return {
+  return json<RootLoaderData>({
     theme: themeSession.getTheme(),
-  }
+    url: {
+      origin: getDomainUrl(request),
+      path: new URL(request.url).pathname,
+    },
+  })
 }
 
 function App() {

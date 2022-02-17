@@ -7,18 +7,27 @@ import { getNote } from '~/server/collectedNotes.server'
 import proseStyles from '~/styles/prose.css'
 import highlightStyles from '~/styles/highlight.css'
 
-import { Swr } from '~/utils/headers'
+import { getHeaders, Swr } from '~/utils/headers'
+import { seoNoteMeta } from '~/utils/seo'
 
 import { Section } from '~/components/section'
+import { ErrorPage } from '~/components/error'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: proseStyles },
   { rel: 'stylesheet', href: highlightStyles },
 ]
 
-type BlogPostLoaderData = {
+export type BlogPostLoaderData = {
   body: HTML
+  title: string
+  headline: string
+  path: string
 }
+
+export const headers = getHeaders
+
+export const meta = seoNoteMeta
 
 export const loader: LoaderFunction = async ({ params }) => {
   const note = await getNote(params.slug as string)
@@ -26,7 +35,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!note) throw new Response('Not Found', { status: 404 })
 
   return json<BlogPostLoaderData>(
-    { body: note.body },
+    {
+      body: note.body,
+      title: note.title,
+      headline: note.headline,
+      path: note.path,
+    },
     {
       headers: {
         ...Swr,
@@ -49,7 +63,7 @@ const BlogPost = () => {
 }
 
 export const CatchBoundary = () => {
-  return <div>oops</div>
+  return <ErrorPage title="Page not found" description="Ooops" />
 }
 
 export default BlogPost

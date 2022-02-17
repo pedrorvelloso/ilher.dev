@@ -10,6 +10,8 @@ interface NotesSectionProps {
 }
 
 export const NotesSection = ({ notes }: NotesSectionProps) => {
+  if (notes.length === 0) return null
+
   return (
     <Section className="pb-20">
       <div className="flex gap-6 items-center justify-between lg:justify-start">
