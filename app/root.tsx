@@ -73,8 +73,6 @@ export const meta: MetaFunction = ({ data }) => {
 export const loader: LoaderFunction = async ({ request }) => {
   const { getTheme } = await getThemeSession(request)
 
-  console.log({ getTheme: getTheme() })
-
   return json<RootLoaderData>({
     theme: getTheme(),
     url: {
@@ -98,8 +96,6 @@ function App() {
 
 export default function AppWithProviders() {
   const data = useLoaderData<RootLoaderData>()
-
-  console.log({ data })
 
   return (
     <ThemeProvider initialTheme={data.theme}>
