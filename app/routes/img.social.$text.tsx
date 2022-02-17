@@ -3,9 +3,8 @@ import type { LoaderFunction } from 'remix'
 import { imageBuilder } from '~/utils/imageBuilder'
 import { doubleEncode } from '~/utils/misc'
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const requestUrl = new URL(request.url)
-  const text = requestUrl.searchParams.get('text')
+export const loader: LoaderFunction = async ({ params }) => {
+  const { text } = params
 
   const { src } = imageBuilder({
     id: 'social-image',
