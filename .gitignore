@@ -6,7 +6,7 @@ node_modules
 /build
 /api/build
 /api/_build
-
+/api/index.js
 
 /app/styles/**/*.css
 
