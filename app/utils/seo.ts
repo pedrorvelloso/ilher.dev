@@ -52,6 +52,7 @@ interface SeoNoteMetaOptions {
   parentsData: {
     root: RootLoaderData
   }
+  request: Request
 }
 
 export const seoNoteMeta = ({ data, parentsData }: SeoNoteMetaOptions) => {
@@ -64,7 +65,7 @@ export const seoNoteMeta = ({ data, parentsData }: SeoNoteMetaOptions) => {
     ...seoMeta({
       origin: url.origin,
       title: data.title,
-      url: getUrl(url),
+      url: getUrl({ origin: url.origin, path: `/blog/${data.path}` }),
       description: data.headline,
       image: getSeoImage({ origin: url.origin, text: data.title }),
     }),

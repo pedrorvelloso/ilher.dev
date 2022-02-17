@@ -35,5 +35,6 @@ export const getNote = async (path: string) => {
     body: splittedBody.join('\n'),
     title: n.title,
     headline: n.headline.split('\n')[0],
+    path: n.path,
   }
 }

@@ -22,6 +22,7 @@ export type BlogPostLoaderData = {
   body: HTML
   title: string
   headline: string
+  path: string
 }
 
 export const headers = getHeaders
@@ -34,7 +35,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (!note) throw new Response('Not Found', { status: 404 })
 
   return json<BlogPostLoaderData>(
-    { body: note.body, title: note.title, headline: note.headline },
+    {
+      body: note.body,
+      title: note.title,
+      headline: note.headline,
+      path: note.path,
+    },
     {
       headers: {
         ...Swr,
