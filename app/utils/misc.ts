@@ -26,3 +26,7 @@ export const getDomainUrl = (request: Request) => {
 export const getUrl = (url: { origin: string; path: string }) => {
   return `${url.origin}${url.path}`
 }
+
+export const doubleEncode = (s: string) => {
+  return encodeURIComponent(encodeURIComponent(s))
+}

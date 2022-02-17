@@ -5,12 +5,12 @@ setConfig({
   cloudName: 'ilher-dev',
 })
 
-interface ImagePropsOptions {
+interface ImageBuilderOptions {
   id: string
   transformations?: TransformerOption
 }
 
-export function imageProps({ id, transformations }: ImagePropsOptions) {
+export function imageBuilder({ id, transformations }: ImageBuilderOptions) {
   const cloudinaryImage = buildUrl(id, {
     transformations: { format: 'webp', ...transformations },
   })
@@ -32,7 +32,7 @@ export function getImageProps({
   const averageSize = Math.ceil(widths.reduce((a, s) => a + s) / widths.length)
 
   return {
-    src: imageProps({
+    src: imageBuilder({
       id,
       transformations: {
         ...transformations,
@@ -42,7 +42,7 @@ export function getImageProps({
     srcSet: widths
       .map((width) =>
         [
-          imageProps({
+          imageBuilder({
             id,
             transformations: {
               ...transformations,

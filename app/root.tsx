@@ -50,7 +50,7 @@ export const links: LinksFunction = () => {
   ]
 }
 
-type RootLoaderData = {
+export type RootLoaderData = {
   theme: Theme
   url: {
     origin: string
@@ -59,10 +59,13 @@ type RootLoaderData = {
 }
 
 export const meta: MetaFunction = ({ data }) => {
+  const { url } = data as RootLoaderData
+
   return {
     ...seoMeta({
       keywords: 'React, Remix, Webdev, Javascript',
-      url: getUrl(data.url),
+      url: getUrl(url),
+      origin: url.origin,
     }),
   }
 }

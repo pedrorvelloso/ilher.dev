@@ -1,15 +1,13 @@
 import type { LoaderFunction } from 'remix'
-import { imageProps } from '~/utils/imageBuilder'
 
-function doubleEncode(s: string) {
-  return encodeURIComponent(encodeURIComponent(s))
-}
+import { imageBuilder } from '~/utils/imageBuilder'
+import { doubleEncode } from '~/utils/misc'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const requestUrl = new URL(request.url)
   const text = requestUrl.searchParams.get('text')
 
-  const { src } = imageProps({
+  const { src } = imageBuilder({
     id: 'social',
     transformations: {
       chaining: [
@@ -32,9 +30,9 @@ export const loader: LoaderFunction = async ({ request }) => {
     },
   })
 
-  const socialImage = await fetch(src)
-  const blob = await socialImage.arrayBuffer()
-  return new Response(Buffer.from(blob), {
+  const socialImageCloudinary = await fetch(src)
+  const imageBuffer = await socialImageCloudinary.arrayBuffer()
+  return new Response(Buffer.from(imageBuffer), {
     headers: {
       'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=2419200',
