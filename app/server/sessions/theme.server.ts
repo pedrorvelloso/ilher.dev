@@ -21,7 +21,6 @@ export const getThemeSession = async (request: Request) => {
   return {
     getTheme(): Theme {
       const themeValue = session.get('theme') as Theme
-      console.log({ themeValue })
       return themeValue === 'dark' || themeValue === 'light'
         ? themeValue
         : 'dark'

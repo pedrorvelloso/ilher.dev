@@ -8,9 +8,6 @@
     "prebuild": "yarn clear",
     "dev": "pm2-dev ./scripts/pm2.config.js",
     "postinstall": "remix setup node",
-    "predeploy": "yarn clear",
-    "deploy": "fly deploy --remote-only",
-    "start": "remix-serve api/_build",
     "start:dev": "cross-env NODE_ENV=development remix dev",
     "watch:css": "postcss styles --base styles --dir app/styles -w",
     "build:css": "postcss styles --base styles --dir app/styles --env production",
@@ -18,7 +15,7 @@
     "check:lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext js,jsx,ts,tsx .",
     "validate": "./scripts/check-app",
     "prepare": "husky install",
-    "clear": "rimraf api/_build public/build \"./app/styles/**/*.css\""
+    "clear": "rimraf public/build \"./app/styles/**/*.css\""
   },
   "dependencies": {
     "@remix-run/react": "^1.2.1",
