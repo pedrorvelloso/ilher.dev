@@ -55,7 +55,7 @@ const BlogPost = () => {
   return (
     <Section className="mt-20 mb-20">
       <article
-        className="prose dark:prose-invert sm:prose-lg mx-auto prose-a:text-sky-500 prose-a:prose-h1:text-gray-800 dark:prose-a:prose-h1:text-gray-100 prose-a:no-underline prose-h1:text-lg prose-a:prose-h1:text-xl prose-a:prose-h1:font-bold"
+        className="prose dark:prose-invert sm:prose-lg mx-auto prose-a:text-sky-500 prose-a:prose-h1:text-gray-800 dark:prose-a:prose-h1:text-gray-100 prose-a:no-underline prose-h1:text-lg prose-a:prose-h1:text-xl prose-a:prose-h1:font-bold prose-a:prose-h2:text-gray-800 dark:prose-a:prose-h2:text-gray-100 prose-h2:text-lg prose-a:prose-h2:text-xl prose-a:prose-h2:font-bold"
         dangerouslySetInnerHTML={{ __html: body }}
       />
     </Section>
