@@ -46,7 +46,9 @@ interface GetSeoImageOptions {
 }
 
 export const getSeoImage = ({ origin, text }: GetSeoImageOptions) => {
-  return `${origin}/img/social/${text}.png`
+  const params = new URLSearchParams({ text })
+
+  return `${origin}/img/social?${params}`
 }
 
 interface SeoNoteMetaOptions {

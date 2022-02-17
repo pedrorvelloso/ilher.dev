@@ -3,31 +3,34 @@ import type { LoaderFunction } from 'remix'
 import { imageBuilder } from '~/utils/imageBuilder'
 import { doubleEncode } from '~/utils/misc'
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const { text } = params
+export const loader: LoaderFunction = async ({ request }) => {
+  const requestUrl = new URL(request.url)
+  const text = requestUrl.searchParams.get('text')
 
   const { src } = imageBuilder({
-    id: 'social-image',
+    id: 'Social_3_qsewrs',
     transformations: {
       chaining: [
         {
           resize: {
             type: 'fit',
-            width: 1786,
-            height: 656,
+            width: 1010,
+            height: 216,
           },
           gravity: 'north_west',
-          overlay: `text:Arial_144_bold:${doubleEncode(
-            text?.replace('.png', '') ?? '-',
+          overlay: `text:Arial_86_bold:${doubleEncode(
+            text ?? '-',
           )},co_rgb:D1D5DB`,
           position: {
-            x: 307,
-            y: 200,
+            x: 95,
+            y: 62,
           },
         },
       ],
     },
   })
+
+  console.log(src)
 
   const socialImageCloudinary = await fetch(src)
   const imageBuffer = await socialImageCloudinary.arrayBuffer()
