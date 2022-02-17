@@ -16,4 +16,5 @@ export const getHeaders: HeadersFunction = ({ loaderHeaders }) => {
 
 export const Swr = {
   'Cache-Control': `stale-while-revalidate=59, s-maxage=1`,
+  Vary: 'Cookie',
 }
