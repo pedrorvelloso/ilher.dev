@@ -7,6 +7,7 @@ interface GetSeoOptions {
   description?: string
   keywords?: string
   image?: string
+  type?: 'article' | 'website'
   url: string
   origin: string
 }
@@ -18,6 +19,7 @@ export const seoMeta = ({
   url,
   origin,
   image = getSeoImage({ origin, text: title }),
+  type = 'website',
 }: GetSeoOptions) => ({
   title,
   description,
@@ -26,6 +28,7 @@ export const seoMeta = ({
   'og:url': url,
   'og:title': title,
   'og:description': description,
+  'og:type': type,
   'og:image': image,
   'og:image:alt': title,
   'twitter:card': image ? 'summary_large_image' : 'summary',
@@ -69,6 +72,7 @@ export const seoNoteMeta = ({ data, parentsData }: SeoNoteMetaOptions) => {
       url: getUrl({ origin: url.origin, path: `/blog/${data.path}` }),
       description: data.headline,
       image: getSeoImage({ origin: url.origin, text: data.title }),
+      type: 'article',
     }),
   }
 }
