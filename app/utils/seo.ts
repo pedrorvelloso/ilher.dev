@@ -46,7 +46,7 @@ interface GetSeoImageOptions {
 }
 
 export const getSeoImage = ({ origin, text }: GetSeoImageOptions) => {
-  return `${origin}/img/social/${text}`
+  return `${origin}/img/social/${text}.png`
 }
 
 interface SeoNoteMetaOptions {

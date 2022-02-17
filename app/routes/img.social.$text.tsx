@@ -18,7 +18,7 @@ export const loader: LoaderFunction = async ({ params }) => {
           },
           gravity: 'north_west',
           overlay: `text:Arial_144_bold:${doubleEncode(
-            text ?? '-',
+            text?.replace('.png', '') ?? '-',
           )},co_rgb:D1D5DB`,
           position: {
             x: 307,
