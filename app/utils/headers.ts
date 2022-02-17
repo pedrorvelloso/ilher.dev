@@ -14,8 +14,6 @@ export const getHeaders: HeadersFunction = ({ loaderHeaders }) => {
   return headers
 }
 
-// const SECOND_PER_YEAR = 3.154e7
-
 export const Swr = {
   'Cache-Control': `stale-while-revalidate=59, s-maxage=1`,
 }
