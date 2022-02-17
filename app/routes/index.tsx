@@ -2,7 +2,7 @@ import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 
 import { getLatestNotes } from '~/server/collectedNotes.server'
-import { getHeaders, Swr } from '~/utils/headers'
+import { getHeaders, MaxAge } from '~/utils/headers'
 import { NoteInfo } from '~/types'
 
 import { AboutMeSection } from '~/components/sections/about-me-section'
@@ -29,7 +29,7 @@ export const loader: LoaderFunction = async () => {
     { notes: notes.splice(0, 3) },
     {
       headers: {
-        ...Swr,
+        ...MaxAge,
       },
     },
   )
