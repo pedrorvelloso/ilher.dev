@@ -10,6 +10,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const { src } = imageBuilder({
     id: 'Social_3_qsewrs',
     transformations: {
+      format: 'png',
       chaining: [
         {
           resize: {
