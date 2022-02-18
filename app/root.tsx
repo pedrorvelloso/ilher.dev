@@ -113,7 +113,7 @@ function Document({
   theme?: Theme
 }) {
   return (
-    <html lang="en" prefix="og: http://ogp.me/ns#">
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />

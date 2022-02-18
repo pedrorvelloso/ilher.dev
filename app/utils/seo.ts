@@ -1,13 +1,16 @@
 import { RootLoaderData } from '~/root'
 import { BlogPostLoaderData } from '~/routes/blog/$slug'
-import { getUrl } from './misc'
+import { getUrl, ogImageLinkText } from './misc'
+
+type SiteSectionType = 'article' | 'website'
 
 interface GetSeoOptions {
   title?: string
   description?: string
   keywords?: string
+  ogImageKey?: keyof typeof ogImageLinkText
   image?: string
-  type?: 'article' | 'website'
+  type?: SiteSectionType
   url: string
   origin: string
 }
@@ -18,8 +21,9 @@ export const seoMeta = ({
   keywords = '',
   url,
   origin,
-  image = getSeoImage({ origin, text: title }),
   type = 'website',
+  ogImageKey = 'home',
+  image = getSeoImage({ origin, id: ogImageKey, type }),
 }: GetSeoOptions) => ({
   title,
   description,
@@ -42,11 +46,16 @@ export const seoMeta = ({
 
 interface GetSeoImageOptions {
   origin: string
-  text: string
+  id: string
+  type?: SiteSectionType
 }
 
-export const getSeoImage = ({ origin, text }: GetSeoImageOptions) => {
-  const params = new URLSearchParams({ text })
+export const getSeoImage = ({
+  origin,
+  id,
+  type = 'website',
+}: GetSeoImageOptions) => {
+  const params = new URLSearchParams({ id, type })
 
   return `${origin}/img/social?${params}`
 }
@@ -71,7 +80,11 @@ export const seoNoteMeta = ({ data, parentsData }: SeoNoteMetaOptions) => {
       title: data.title,
       url: getUrl({ origin: url.origin, path: `/blog/${data.path}` }),
       description: data.headline,
-      image: getSeoImage({ origin: url.origin, text: data.title }),
+      image: getSeoImage({
+        origin: url.origin,
+        id: data.path,
+        type: 'article',
+      }),
       type: 'article',
     }),
   }

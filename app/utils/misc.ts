@@ -30,3 +30,7 @@ export const getUrl = (url: { origin: string; path: string }) => {
 export const doubleEncode = (s: string) => {
   return encodeURIComponent(encodeURIComponent(s))
 }
+
+export const ogImageLinkText = {
+  home: 'Pedro Reis — Fullstack Developer',
+}
