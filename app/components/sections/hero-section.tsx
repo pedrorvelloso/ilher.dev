@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 import { Avatar } from '~/components/avatar'
 import { Section } from '~/components/section'
 
 export const HeroSection = () => {
+  const shouldUseReducedMotion = useReducedMotion()
+
   const childVariants = {
     initial: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -44,11 +46,11 @@ export const HeroSection = () => {
           visible: {
             opacity: 1,
             scale: 1,
-            transition: { delay: 0.2 * 3, duration: 0.4 },
+            transition: { duration: 0.4 },
           },
           initial: {
             opacity: 0,
-            scale: 1.5,
+            scale: shouldUseReducedMotion ? 1 : 1.5,
           },
         }}
       >
