@@ -58,6 +58,9 @@ export type RootLoaderData = {
 }
 
 export const meta: MetaFunction = ({ data }) => {
+  if (!data)
+    return { title: 'Page not found', description: 'This page does not exist!' }
+
   const { url } = data as RootLoaderData
 
   return {
