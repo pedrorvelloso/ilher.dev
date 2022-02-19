@@ -1,4 +1,5 @@
 import { collectedNotes } from 'collected-notes'
+import readingTime from 'reading-time'
 
 import { formatDate } from '~/utils/dates'
 import { getEnv } from '~/utils/misc'
@@ -16,6 +17,7 @@ export const getLatestNotes = async () => {
     createdAt: formatDate(note.created_at),
     id: note.id,
     path: note.path,
+    readingTime: readingTime(note.body).text,
   }))
 }
 
@@ -29,7 +31,7 @@ export const getNote = async (path: string) => {
   const splittedBody = body.split('\n').filter((b) => !!b)
   splittedBody[1] = `<span class="text-sm text-gray-700 dark:text-gray-400">${formatDate(
     n.created_at,
-  )}</span>`
+  )} — ${readingTime(n.body).text}</span>`
 
   return {
     body: splittedBody.join('\n'),

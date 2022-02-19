@@ -2,7 +2,13 @@ import { NoteInfo } from '~/types'
 
 import { Anchor } from '~/components/anchor'
 
-export const NotePreview = ({ title, path, headline, createdAt }: NoteInfo) => {
+export const NotePreview = ({
+  title,
+  path,
+  headline,
+  createdAt,
+  readingTime,
+}: NoteInfo) => {
   return (
     <div className="relative card h-full">
       <Anchor
@@ -17,7 +23,7 @@ export const NotePreview = ({ title, path, headline, createdAt }: NoteInfo) => {
           {headline}
         </span>
         <span className="text-xs mt-auto pt-2 text-gray-700 dark:text-gray-400">
-          {createdAt}
+          {createdAt} — {readingTime}
         </span>
       </Anchor>
     </div>
