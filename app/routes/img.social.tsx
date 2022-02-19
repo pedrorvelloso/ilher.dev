@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   }
 
   const { src } = imageBuilder({
-    id: 'Social_3_qsewrs',
+    id: 'social-image',
     transformations: {
       format: 'png',
       chaining: [
@@ -30,10 +30,10 @@ export const loader: LoaderFunction = async ({ request }) => {
           resize: {
             type: 'fit',
             width: 1010,
-            height: 216,
+            height: 250,
           },
           gravity: 'north_west',
-          overlay: `text:Arial_86_bold:${doubleEncode(text)},co_rgb:D1D5DB`,
+          overlay: `text:Nunito_86_bold:${doubleEncode(text)},co_rgb:D1D5DB`,
           position: {
             x: 95,
             y: 62,

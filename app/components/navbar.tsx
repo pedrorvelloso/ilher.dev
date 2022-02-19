@@ -47,7 +47,7 @@ const ThemeChanger = () => {
 
 export const Navbar = () => {
   return (
-    <Section className="py-4 lg:py-12" as="div">
+    <Section className="py-4 lg:py-12" as="div" extrapolate>
       <nav className="text-black dark:text-white flex justify-between items-center mx-auto">
         <Anchor
           href="/"
