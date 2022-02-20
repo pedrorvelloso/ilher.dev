@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 import { Anchor } from '~/components/anchor'
 import { H1, H3, Paragraph } from '~/components/typograph'
 import { SocialLinkCard } from '~/components/social-link-card'
@@ -9,7 +11,20 @@ export const AboutMeSection = () => {
   return (
     <Section featured>
       <div className="flex flex-col lg:flex-row justify-between">
-        <div className="max-w-xl">
+        <motion.div
+          whileInView="visible"
+          initial="initial"
+          viewport={{ once: true }}
+          variants={{
+            initial: { opacity: 0, x: -60 },
+            visible: {
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.5 },
+            },
+          }}
+          className="max-w-xl"
+        >
           <H3>Heeeeey, listen! 🧚 </H3>
           <H1 className="mb-4">Hi, I&apos;m Pedro!</H1>
           <Paragraph>
@@ -51,8 +66,21 @@ export const AboutMeSection = () => {
             </Anchor>{' '}
             and send me an email!
           </Paragraph>
-        </div>
-        <div className="max-w-full">
+        </motion.div>
+        <motion.div
+          whileInView="visible"
+          initial="initial"
+          viewport={{ once: true }}
+          variants={{
+            initial: { opacity: 0, x: 60 },
+            visible: {
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.5, delay: 0.3 },
+            },
+          }}
+          className="max-w-full"
+        >
           <H3>Stay tuned with my socials!</H3>
           <div className="grid grid-cols-2 gap-5 lg:gap-x-6 mt-3">
             {socials.map((social) => (
@@ -65,7 +93,7 @@ export const AboutMeSection = () => {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </Section>
   )

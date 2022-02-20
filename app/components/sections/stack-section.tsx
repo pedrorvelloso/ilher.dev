@@ -20,7 +20,7 @@ export const StackSection = () => {
           variants={{
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.2, duration: 0.5 },
+              transition: { staggerChildren: 0.3, duration: 0.5 },
             },
             initial: { opacity: 0 },
           }}
