@@ -1,47 +1,39 @@
-import clsx from 'clsx'
-import { FaMoon as MoonIcon, FaSun as SunIcon } from 'react-icons/fa'
+import {
+  IoMoon as MoonIcon,
+  IoSunny as SunIcon,
+  IoMail as MailIcon,
+  IoBook as BookIcon,
+  IoLogoGithub as GithubIcon,
+} from 'react-icons/io5'
 
 import { useTheme } from '~/providers/theme-provider'
 
 import { Anchor } from '~/components/anchor'
 import { Section } from './section'
+import { Button, LinkButton } from './button'
 
 const ThemeChanger = () => {
   const { theme, changeTheme } = useTheme()
 
   return (
-    <button
-      type="button"
-      onClick={() => {
-        changeTheme(theme === 'dark' ? 'light' : 'dark')
-      }}
-      className="inline-flex items-center justify-center h-14 focus:outline-none overflow-hidden noscript-hidden"
-    >
-      <div className="relative w-8 h-8">
-        <span
-          className={clsx(
-            'absolute inset-0 text-black dark:text-white transform transition duration-500 flex justify-center items-center',
-            {
-              'opacity-0': theme === 'light',
-              'opacity-1': theme === 'dark',
-            },
-          )}
-        >
-          <MoonIcon size={28} />
-        </span>
-        <span
-          className={clsx(
-            'absolute inset-0 text-black dark:text-white transform transition duration-500 flex justify-center items-center',
-            {
-              'opacity-0': theme === 'dark',
-              'opacity-1': theme === 'light',
-            },
-          )}
-        >
-          <SunIcon size={28} />
-        </span>
-      </div>
-    </button>
+    <div className="bg-gray-300 dark:bg-gray-800 p-1 rounded-xl flex gap-1">
+      <Button
+        label="Dark Theme"
+        onClick={() => changeTheme('dark')}
+        active={theme === 'dark'}
+        type="button"
+      >
+        <MoonIcon />
+      </Button>
+      <Button
+        label="Light Theme"
+        onClick={() => changeTheme('light')}
+        active={theme === 'light'}
+        type="button"
+      >
+        <SunIcon />
+      </Button>
+    </div>
   )
 }
 
@@ -56,18 +48,23 @@ export const Navbar = () => {
         >
           Pedro Reis
         </Anchor>
-        <div className="flex items-center">
-          <ThemeChanger />
-          <span className="hidden ml-6 lg:block">
-            <Anchor
+        <div className="flex items-center gap-3">
+          <span className="hidden ml-6 lg:flex lg:gap-1">
+            <LinkButton label="Contact" href="mailto:pedro@ilher.dev" external>
+              <MailIcon />
+            </LinkButton>
+            <LinkButton label="Blog" href="/blog">
+              <BookIcon />
+            </LinkButton>
+            <LinkButton
+              label="Github"
+              href="https://github.com/pedrorvelloso"
               external
-              underline={false}
-              href="mailto:pedro@ilher.dev"
-              className="no-underline bg-accent text-white hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all px-6 py-2 rounded-full text-md"
             >
-              Let&apos;s chat
-            </Anchor>
+              <GithubIcon />
+            </LinkButton>
           </span>
+          <ThemeChanger />
         </div>
       </nav>
     </Section>

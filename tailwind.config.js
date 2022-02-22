@@ -14,6 +14,7 @@ module.exports = {
         southsystem: '#ff5100',
         accent: 'var(--accent-color)',
         accentDarker: 'var(--accent-darker-color)',
+        darkerBlue: 'var(--color-dark-blue)',
         twitter: {
           brand: 'rgba(29, 161, 242, 1)',
           transparent: 'rgba(29, 161, 242, 0.08)',
