@@ -16,12 +16,11 @@ const ThemeChanger = () => {
   const { theme, changeTheme } = useTheme()
 
   return (
-    <div className="bg-gray-300 dark:bg-gray-800 p-1 rounded-xl flex gap-1">
+    <div className="bg-gray-300 dark:bg-gray-800 dark:bg-opacity-60 p-1 rounded-xl flex gap-1">
       <Button
         label="Dark Theme"
         onClick={() => changeTheme('dark')}
         active={theme === 'dark'}
-        type="button"
       >
         <MoonIcon />
       </Button>
@@ -29,7 +28,6 @@ const ThemeChanger = () => {
         label="Light Theme"
         onClick={() => changeTheme('light')}
         active={theme === 'light'}
-        type="button"
       >
         <SunIcon />
       </Button>

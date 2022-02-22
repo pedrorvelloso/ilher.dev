@@ -1,65 +1,71 @@
 import clsx from 'clsx'
 
+import { PolymorphicComponentProps } from '~/helpers'
+
 import { AnchorProps, Anchor } from '~/components/anchor'
 
 const ButtonTooltip: React.FC = ({ children }) => (
-  <div className="invisible transition-all delay-75 bg-opacity-80 text-sm group-hover:visible absolute left-1/2 right-auto -translate-x-1/2 -bottom-9 bg-neutral-900 text-white px-3 py-1 pointer-events-none text-md rounded-md scale-0 group-hover:scale-100 min-w-fit whitespace-nowrap">
+  <span className="invisible transition-all delay-75 bg-opacity-80 text-sm group-hover:visible absolute left-1/2 right-auto -translate-x-1/2 -bottom-9 bg-neutral-900 text-white px-3 py-1 pointer-events-none text-md rounded-md scale-0 group-hover:scale-100 min-w-fit whitespace-nowrap">
     {children}
-  </div>
+  </span>
 )
 
-interface ButtonContainerProps {
-  as?: React.ElementType
+interface ButtonContainerOwnProps {
   small?: boolean
   outline?: boolean
   active?: boolean
   className?: string
 }
+type ButtonContainerProps<C extends React.ElementType> =
+  PolymorphicComponentProps<C, ButtonContainerOwnProps>
 
-const ButtonContainer: React.FC<ButtonContainerProps> = ({
+const ButtonContainer = <C extends React.ElementType = 'button'>({
   children,
   small = false,
   outline = false,
   active = false,
-  as: Tag = 'button',
+  as,
   className,
   ...rest
-}) => (
-  <Tag
-    className={clsx(
-      'rounded-xl relative group transition-colors w-fit flex items-center gap-x-2',
-      {
-        'dark:bg-gray-700 bg-gray-400': active && !outline,
-        'dark:text-gray-300 text-gray-800': !active && !outline,
-        'p-3': !small,
-        'text-sm py-1 px-2': small,
-        'hover:bg-accent': !outline,
-        'dark:hover:text-darkerBlue hover:text-gray-300': !outline && !active,
-        'border border-transparent hover:border-accent dark:text-gray-300 text-gray-800 hover:text-accent dark:hover:text-accent':
-          outline,
+}: ButtonContainerProps<C>) => {
+  const Tag = as || 'button'
+  return (
+    <Tag
+      className={clsx(
+        'rounded-xl relative group transition-colors w-fit',
+        {
+          'dark:bg-gray-700 bg-gray-400': active && !outline,
+          'dark:text-gray-300 text-gray-800': !active && !outline,
+          'p-3': !small,
+          'text-sm py-1 px-2': small,
+          'hover:bg-accent': !outline,
+          'dark:hover:text-darkerBlue hover:text-gray-300': !outline && !active,
+          'border border-transparent hover:border-accent dark:text-gray-300 text-gray-800 hover:text-accent dark:hover:text-accent':
+            outline,
+        },
         className,
-      },
-    )}
-    {...rest}
-  >
-    {children}
-  </Tag>
-)
+      )}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  )
+}
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    ButtonContainerOwnProps {
   label?: string
-  active?: boolean
-  small?: boolean
-  outline?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
   label,
   children,
+  type = 'button',
   ...buttonProps
 }) => {
   return (
-    <ButtonContainer {...buttonProps}>
+    <ButtonContainer {...buttonProps} type={type}>
       {children}
       {label && <ButtonTooltip>{label}</ButtonTooltip>}
     </ButtonContainer>
@@ -67,8 +73,8 @@ export const Button: React.FC<ButtonProps> = ({
 }
 
 interface LinkButtonProps
-  extends AnchorProps,
-    Pick<ButtonContainerProps, 'small' | 'outline' | 'className'> {
+  extends Omit<AnchorProps, 'underline'>,
+    ButtonContainerOwnProps {
   label?: string
 }
 
@@ -77,6 +83,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
   label,
   small,
   outline,
+  active,
   className,
   ...anchorProps
 }) => {
@@ -86,7 +93,8 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
         as="div"
         small={small}
         outline={outline}
-        className={className}
+        active={active}
+        className={clsx(className, 'flex items-center gap-x-2')}
       >
         {children}
         {label && <ButtonTooltip>{label}</ButtonTooltip>}
