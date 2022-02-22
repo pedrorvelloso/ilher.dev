@@ -53,7 +53,7 @@ export const Paragraph: React.FC<ParagraphProps> = ({
       className={clsx(className, 'text-lg mb-5 leading-relaxed', {
         // 'lg:text-xl': bigger,
         'text-gray-800 dark:text-gray-300': !isDescription,
-        'text-gray-600': isDescription,
+        'text-gray-400': isDescription,
       })}
     >
       {children}
