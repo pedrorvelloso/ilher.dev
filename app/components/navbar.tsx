@@ -1,5 +1,5 @@
-import { useTransition } from 'remix'
 import { useEffect, useState } from 'react'
+import { useLocation, useTransition } from 'remix'
 import {
   IoMoon as MoonIcon,
   IoSunny as SunIcon,
@@ -42,34 +42,57 @@ const ThemeChanger = () => {
   )
 }
 
-const DrawerMenu = () => {
+const DrawerMenu = ({ path }: { path: string }) => {
   return (
     <div>
       <p className="pl-3 mt-5 text-gray-400 font-bold">Pedro Reis</p>
-      <LinkButton href="/" className="text-left">
-        <HomeIcon /> Home
-      </LinkButton>
-      <LinkButton href="/blog" className="text-left">
-        <BookIcon /> Blog
-      </LinkButton>
+      <span className="flex flex-col gap-1">
+        <LinkButton
+          href="/"
+          className="text-left text-gray-200 hover:text-darkerBlue"
+          active={path === '/'}
+          gradient
+          disableHover
+        >
+          <HomeIcon /> Home
+        </LinkButton>
+        <LinkButton
+          href="/blog"
+          active={path.startsWith('/blog')}
+          gradient
+          disableHover
+          className="text-left text-gray-200 hover:text-darkerBlue"
+        >
+          <BookIcon /> Blog
+        </LinkButton>
+      </span>
       <p className="pl-3 mt-5 text-gray-400 font-bold">Social</p>
-      <LinkButton
-        href="https://github.com/pedrorvelloso"
-        className="text-left"
-        external
-      >
-        <GithubIcon /> Github
-      </LinkButton>
-      <LinkButton
-        href="https://twitter.com/ilher"
-        className="text-left"
-        external
-      >
-        <TwitterLogo /> Twitter
-      </LinkButton>
-      <LinkButton href="mailto:pedro@ilher.dev" className="text-left" external>
-        <MailIcon /> Contact
-      </LinkButton>
+      <span className="flex flex-col gap-1">
+        <LinkButton
+          href="https://github.com/pedrorvelloso"
+          className="text-left text-gray-200 hover:text-darkerBlue"
+          external
+          disableHover
+        >
+          <GithubIcon /> Github
+        </LinkButton>
+        <LinkButton
+          href="https://twitter.com/ilher"
+          className="text-left text-gray-200 hover:text-darkerBlue"
+          external
+          disableHover
+        >
+          <TwitterLogo /> Twitter
+        </LinkButton>
+        <LinkButton
+          href="mailto:pedro@ilher.dev"
+          className="text-left text-gray-200 hover:text-darkerBlue"
+          external
+          disableHover
+        >
+          <MailIcon /> Contact
+        </LinkButton>
+      </span>
     </div>
   )
 }
@@ -77,6 +100,7 @@ const DrawerMenu = () => {
 export const Navbar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const transition = useTransition()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     if (transition.state === 'loading') setIsDrawerOpen(false)
@@ -130,7 +154,7 @@ export const Navbar = () => {
         >
           <CloseIcon />
         </Button>
-        <DrawerMenu />
+        <DrawerMenu path={pathname} />
       </Drawer>
     </>
   )

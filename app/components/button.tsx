@@ -14,6 +14,8 @@ interface ButtonContainerOwnProps {
   small?: boolean
   outline?: boolean
   active?: boolean
+  gradient?: boolean
+  disableHover?: boolean
   className?: string
 }
 type ButtonContainerProps<C extends React.ElementType> =
@@ -24,6 +26,8 @@ const ButtonContainer = <C extends React.ElementType = 'button'>({
   small = false,
   outline = false,
   active = false,
+  gradient = false,
+  disableHover = false,
   as,
   className,
   ...rest
@@ -34,12 +38,15 @@ const ButtonContainer = <C extends React.ElementType = 'button'>({
       className={clsx(
         'rounded-xl relative group transition-colors w-full',
         {
-          'dark:bg-gray-700 bg-gray-400': active && !outline,
+          'dark:bg-gray-700 bg-gray-400': active && !outline && !gradient,
+          'bg-gradient-to-br from-accent to-gray-400':
+            active && !outline && gradient,
           'dark:text-gray-300 text-gray-800': !active && !outline,
           'p-3': !small,
           'text-sm py-1 px-2': small,
-          'hover:bg-accent': !outline,
-          'dark:hover:text-darkerBlue hover:text-gray-300': !outline && !active,
+          'hover:bg-accent': !outline && !disableHover,
+          'dark:hover:text-darkerBlue hover:text-gray-300':
+            !outline && !active && !disableHover,
           'border border-transparent hover:border-accent dark:text-gray-300 text-gray-800 hover:text-accent dark:hover:text-accent':
             outline,
         },
@@ -85,8 +92,10 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
   small,
   outline,
   active,
+  gradient,
   className,
   anchorClassName,
+  disableHover,
   ...anchorProps
 }) => {
   return (
@@ -96,6 +105,8 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
         small={small}
         outline={outline}
         active={active}
+        gradient={gradient}
+        disableHover={disableHover}
         className={clsx(className, 'flex items-center gap-x-2')}
       >
         {children}
