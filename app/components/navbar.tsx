@@ -45,32 +45,32 @@ const ThemeChanger = () => {
 const DrawerMenu = ({ path }: { path: string }) => {
   return (
     <div>
-      <p className="pl-3 mt-5 text-gray-400 font-bold">Pedro Reis</p>
+      <p className="pl-3 mt-5 mb-2 text-gray-400 font-bold">Pedro Reis</p>
       <span className="flex flex-col gap-1">
         <LinkButton
           href="/"
-          className="text-left text-gray-200 hover:text-darkerBlue"
+          className="text-left text-gray-200"
           active={path === '/'}
-          gradient
           disableHover
+          plainActive
         >
           <HomeIcon /> Home
         </LinkButton>
         <LinkButton
           href="/blog"
           active={path.startsWith('/blog')}
-          gradient
           disableHover
-          className="text-left text-gray-200 hover:text-darkerBlue"
+          plainActive
+          className="text-left text-gray-200"
         >
           <BookIcon /> Blog
         </LinkButton>
       </span>
-      <p className="pl-3 mt-5 text-gray-400 font-bold">Social</p>
+      <p className="pl-3 mt-5 mb-2 text-gray-400 font-bold">Social</p>
       <span className="flex flex-col gap-1">
         <LinkButton
           href="https://github.com/pedrorvelloso"
-          className="text-left text-gray-200 hover:text-darkerBlue"
+          className="text-left text-gray-200"
           external
           disableHover
         >
@@ -78,7 +78,7 @@ const DrawerMenu = ({ path }: { path: string }) => {
         </LinkButton>
         <LinkButton
           href="https://twitter.com/ilher"
-          className="text-left text-gray-200 hover:text-darkerBlue"
+          className="text-left text-gray-200"
           external
           disableHover
         >
@@ -86,7 +86,7 @@ const DrawerMenu = ({ path }: { path: string }) => {
         </LinkButton>
         <LinkButton
           href="mailto:pedro@ilher.dev"
-          className="text-left text-gray-200 hover:text-darkerBlue"
+          className="text-left text-gray-200"
           external
           disableHover
         >
