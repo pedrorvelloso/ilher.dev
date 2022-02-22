@@ -65,7 +65,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...buttonProps
 }) => {
   return (
-    <ButtonContainer {...buttonProps} type={type}>
+    <ButtonContainer type={type} {...buttonProps}>
       {children}
       {label && <ButtonTooltip>{label}</ButtonTooltip>}
     </ButtonContainer>
