@@ -32,7 +32,7 @@ const ButtonContainer = <C extends React.ElementType = 'button'>({
   return (
     <Tag
       className={clsx(
-        'rounded-xl relative group transition-colors w-fit',
+        'rounded-xl relative group transition-colors w-full',
         {
           'dark:bg-gray-700 bg-gray-400': active && !outline,
           'dark:text-gray-300 text-gray-800': !active && !outline,
@@ -76,6 +76,7 @@ interface LinkButtonProps
   extends Omit<AnchorProps, 'underline'>,
     ButtonContainerOwnProps {
   label?: string
+  anchorClassName?: string
 }
 
 export const LinkButton: React.FC<LinkButtonProps> = ({
@@ -85,10 +86,11 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
   outline,
   active,
   className,
+  anchorClassName,
   ...anchorProps
 }) => {
   return (
-    <Anchor {...anchorProps} underline={false}>
+    <Anchor className={anchorClassName} {...anchorProps} underline={false}>
       <ButtonContainer
         as="div"
         small={small}
