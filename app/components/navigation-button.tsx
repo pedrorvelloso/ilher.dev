@@ -21,6 +21,7 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
       href={href}
       small
       outline
+      anchorClassName="flex w-fit"
       className={clsx('group transition-all', {
         'flex-row-reverse': direction === 'backward',
       })}
