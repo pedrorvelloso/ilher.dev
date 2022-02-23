@@ -7,6 +7,8 @@ export interface AnchorProps {
   underline?: boolean
   external?: boolean
   prefetch?: 'intent' | 'none' | 'render'
+  target?: React.HTMLAttributeAnchorTarget
+  rel?: string
 }
 
 export const Anchor: React.FC<AnchorProps> = ({
@@ -15,6 +17,8 @@ export const Anchor: React.FC<AnchorProps> = ({
   children,
   underline = true,
   external = false,
+  target,
+  rel,
   prefetch,
 }) => {
   if (external)
@@ -22,6 +26,8 @@ export const Anchor: React.FC<AnchorProps> = ({
       <a
         href={href}
         className={clsx(className, { 'hover:underline': underline })}
+        target={target}
+        rel={rel}
       >
         {children}
       </a>

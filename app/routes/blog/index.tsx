@@ -3,6 +3,8 @@ import { json, useLoaderData } from 'remix'
 import { getLatestNotes } from '~/server/collectedNotes.server'
 import { NoteInfo } from '~/types'
 
+import { Swr } from '~/utils/headers'
+
 import { Section } from '~/components/section'
 import { NavigationButton } from '~/components/navigation-button'
 import { NotePreview } from '~/components/note-preview'
@@ -15,7 +17,7 @@ type BlogLoaderData = {
 export const loader: LoaderFunction = async () => {
   const notes = await getLatestNotes()
 
-  return json<BlogLoaderData>({ notes })
+  return json<BlogLoaderData>({ notes }, { headers: { ...Swr } })
 }
 
 const Blog = () => {

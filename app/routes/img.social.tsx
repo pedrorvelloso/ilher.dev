@@ -1,26 +1,39 @@
 import type { LoaderFunction } from 'remix'
+import { cn, sitePath } from '~/server/collectedNotes.server'
 
 import { imageBuilder } from '~/utils/imageBuilder'
-import { doubleEncode } from '~/utils/misc'
+import { doubleEncode, ogImageLinkText } from '~/utils/misc'
 
 export const loader: LoaderFunction = async ({ request }) => {
   const requestUrl = new URL(request.url)
-  const text = requestUrl.searchParams.get('text')
+  const id = requestUrl.searchParams.get('id')
+  const type = requestUrl.searchParams.get('type')
+
+  let text = ogImageLinkText.home
+
+  if (type === 'article' && id) {
+    const { note } = await cn.body(sitePath, id)
+
+    text = note ? note.title : ogImageLinkText.home
+  }
+
+  if (type === 'website' && id) {
+    text = ogImageLinkText[id] ?? ogImageLinkText.home
+  }
 
   const { src } = imageBuilder({
-    id: 'Social_3_qsewrs',
+    id: 'social-image',
     transformations: {
+      format: 'png',
       chaining: [
         {
           resize: {
             type: 'fit',
             width: 1010,
-            height: 216,
+            height: 250,
           },
           gravity: 'north_west',
-          overlay: `text:Arial_86_bold:${doubleEncode(
-            text ?? '-',
-          )},co_rgb:D1D5DB`,
+          overlay: `text:Nunito_86_bold:${doubleEncode(text)},co_rgb:D1D5DB`,
           position: {
             x: 95,
             y: 62,
@@ -29,8 +42,6 @@ export const loader: LoaderFunction = async ({ request }) => {
       ],
     },
   })
-
-  console.log(src)
 
   const socialImageCloudinary = await fetch(src)
   const imageBuffer = await socialImageCloudinary.arrayBuffer()

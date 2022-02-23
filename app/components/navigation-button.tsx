@@ -1,9 +1,13 @@
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
+import clsx from 'clsx'
+import {
+  IoArrowForward as ArrowForward,
+  IoArrowBack as ArrowBackward,
+} from 'react-icons/io5'
 
-import { Anchor } from '~/components/anchor'
+import { LinkButton } from '~/components/button'
 
 interface NavigationButtonProps {
-  direction: 'foward' | 'backward'
+  direction: 'forward' | 'backward'
   href: string
 }
 
@@ -13,22 +17,25 @@ export const NavigationButton: React.FC<NavigationButtonProps> = ({
   children,
 }) => {
   return (
-    <Anchor
+    <LinkButton
       href={href}
-      underline={false}
-      className="text-gray-600 dark:text-gray-400 group flex items-center gap-x-2 hover:text-accent dark:hover:text-accent border border-solid border-transparent rounded-full px-3 py-1 hover:border-accent transition-all"
+      small
+      outline
+      anchorClassName="flex w-fit"
+      className={clsx('group transition-all', {
+        'flex-row-reverse': direction === 'backward',
+      })}
     >
-      {direction === 'backward' && (
-        <div className="group-hover:-translate-x-2 transition-transform">
-          <FaArrowLeft />
-        </div>
-      )}
       {children}
-      {direction === 'foward' && (
-        <div className="group-hover:translate-x-2 transition-transform">
-          <FaArrowRight />
-        </div>
-      )}
-    </Anchor>
+      <span
+        className={clsx(' transition-transform', {
+          'group-hover:-translate-x-1': direction === 'backward',
+          'group-hover:translate-x-1': direction === 'forward',
+        })}
+      >
+        {direction === 'forward' && <ArrowForward />}
+        {direction === 'backward' && <ArrowBackward />}
+      </span>
+    </LinkButton>
   )
 }

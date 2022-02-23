@@ -7,12 +7,12 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-  useLocation,
   useLoaderData,
   json,
 } from 'remix'
 import type { LinksFunction, LoaderFunction, MetaFunction } from 'remix'
 
+import clsx from 'clsx'
 import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
 import noScriptStyles from './styles/no-script.css'
@@ -25,6 +25,7 @@ import { getDomainUrl, getUrl } from './utils/misc'
 
 import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
+import { PageLoading } from './components/loading'
 
 export const links: LinksFunction = () => {
   return [
@@ -59,6 +60,9 @@ export type RootLoaderData = {
 }
 
 export const meta: MetaFunction = ({ data }) => {
+  if (!data)
+    return { title: 'Page not found', description: 'This page does not exist!' }
+
   const { url } = data as RootLoaderData
 
   return {
@@ -71,10 +75,10 @@ export const meta: MetaFunction = ({ data }) => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const themeSession = await getThemeSession(request)
+  const { getTheme } = await getThemeSession(request)
 
   return json<RootLoaderData>({
-    theme: themeSession.getTheme(),
+    theme: getTheme(),
     url: {
       origin: getDomainUrl(request),
       path: new URL(request.url).pathname,
@@ -89,6 +93,7 @@ function App() {
     <Document theme={theme}>
       <Layout>
         <Outlet />
+        <PageLoading />
       </Layout>
     </Document>
   )
@@ -125,9 +130,8 @@ function Document({
           <link rel="stylesheet" href={noScriptStyles} />
         </noscript>
       </head>
-      <body className={theme}>
+      <body className={clsx(theme, 'min-h-screen overflow-x-hidden')}>
         {children}
-        <RouteChangeAnnouncement />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}
@@ -176,59 +180,3 @@ export function ErrorBoundary({ error }: { error: Error }) {
     </Document>
   )
 }
-
-/**
- * Provides an alert for screen reader users when the route changes.
- */
-// TODO edit
-const RouteChangeAnnouncement = React.memo(() => {
-  const [hydrated, setHydrated] = React.useState(false)
-  const [innerHtml, setInnerHtml] = React.useState('')
-  const location = useLocation()
-
-  React.useEffect(() => {
-    setHydrated(true)
-  }, [])
-
-  const firstRenderRef = React.useRef(true)
-  React.useEffect(() => {
-    // Skip the first render because we don't want an announcement on the
-    // initial page load.
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false
-      return
-    }
-
-    const pageTitle = location.pathname === '/' ? 'Home page' : document.title
-    setInnerHtml(`Navigated to ${pageTitle}`)
-  }, [location.pathname])
-
-  // Render nothing on the server. The live region provides no value unless
-  // scripts are loaded and the browser takes over normal routing.
-  if (!hydrated) {
-    return null
-  }
-
-  return (
-    <div
-      aria-live="assertive"
-      aria-atomic
-      id="route-change-region"
-      style={{
-        border: '0',
-        clipPath: 'inset(100%)',
-        clip: 'rect(0 0 0 0)',
-        height: '1px',
-        margin: '-1px',
-        overflow: 'hidden',
-        padding: '0',
-        position: 'absolute',
-        width: '1px',
-        whiteSpace: 'nowrap',
-        wordWrap: 'normal',
-      }}
-    >
-      {innerHtml}
-    </div>
-  )
-})
