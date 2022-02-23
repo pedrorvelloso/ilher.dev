@@ -45,7 +45,12 @@ export const PageLoading = () => {
             <div className="hidden sm:flex flex-col gap-2 p-3">
               <motion.div
                 transition={{
-                  x: { yoyo: Infinity, ease: 'easeOut', duration: 0.5 },
+                  x: {
+                    repeat: Infinity,
+                    repeatType: 'reverse',
+                    ease: 'easeOut',
+                    duration: 0.5,
+                  },
                 }}
                 animate={{ x: [-10, 10] }}
                 className="bg-darkerBlue w-2 h-2 rounded-full"
@@ -53,7 +58,8 @@ export const PageLoading = () => {
               <motion.div
                 transition={{
                   x: {
-                    yoyo: Infinity,
+                    repeat: Infinity,
+                    repeatType: 'reverse',
                     ease: 'easeOut',
                     duration: 0.5,
                     delay: 0.2,
