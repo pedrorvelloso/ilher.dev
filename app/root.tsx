@@ -25,6 +25,7 @@ import { getDomainUrl, getUrl } from './utils/misc'
 
 import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
+import { PageLoading } from './components/loading'
 
 export const links: LinksFunction = () => {
   return [
@@ -92,6 +93,7 @@ function App() {
     <Document theme={theme}>
       <Layout>
         <Outlet />
+        <PageLoading />
       </Layout>
     </Document>
   )
