@@ -9,6 +9,7 @@ import highlightStyles from '~/styles/highlight.css'
 
 import { getHeaders, Swr } from '~/utils/headers'
 import { seoNoteMeta } from '~/utils/seo'
+import { getDomainUrl } from '~/utils/misc'
 
 import { Section } from '~/components/section'
 import { ErrorPage } from '~/components/error'
@@ -29,8 +30,8 @@ export const headers = getHeaders
 
 export const meta = seoNoteMeta
 
-export const loader: LoaderFunction = async ({ params }) => {
-  const note = await getNote(params.slug as string)
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const note = await getNote(params.slug as string, getDomainUrl(request))
 
   if (!note) throw new Response('Not Found', { status: 404 })
 

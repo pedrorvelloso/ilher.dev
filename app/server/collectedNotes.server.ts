@@ -21,7 +21,16 @@ export const getLatestNotes = async () => {
   }))
 }
 
-export const getNote = async (path: string) => {
+export const translateLink = (linkToCheck: string, domain: string) => {
+  const reg = /<p>\(\(([A-Za-z]+)*:([A-Za-z-]+)*\)\)<\/p>/gi
+  const matches = reg.exec(linkToCheck)
+
+  if (!matches) return linkToCheck
+
+  return `<ul><li>Read in <a href="${domain}/blog/${matches[2]}">${matches[1]}</a></li></ul>`
+}
+
+export const getNote = async (path: string, domain: string) => {
   const note = await cn.body(sitePath, path)
 
   if (Object.keys(note).length === 0) return null
@@ -32,6 +41,7 @@ export const getNote = async (path: string) => {
   splittedBody[1] = `<span class="text-sm text-gray-700 dark:text-gray-400">${formatDate(
     n.created_at,
   )} — ${readingTime(n.body).text}</span>`
+  splittedBody[2] = translateLink(splittedBody[2], domain) || splittedBody[2]
 
   return {
     body: splittedBody.join('\n'),
