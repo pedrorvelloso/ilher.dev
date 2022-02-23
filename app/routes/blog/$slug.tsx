@@ -1,6 +1,7 @@
 import type { LoaderFunction, LinksFunction } from 'remix'
 import { json, useLoaderData } from 'remix'
 import { HTML } from 'collected-notes'
+import { IoLogoTwitter as TwitterIcon } from 'react-icons/io5'
 
 import { getNote } from '~/server/collectedNotes.server'
 
@@ -14,7 +15,7 @@ import { getDomainUrl } from '~/utils/misc'
 import { Section } from '~/components/section'
 import { ErrorPage } from '~/components/error'
 import { NavigationButton } from '~/components/navigation-button'
-import { Anchor } from '~/components/anchor'
+import { LinkButton } from '~/components/button'
 
 export const links: LinksFunction = () => [
   { rel: 'stylesheet', href: proseStyles },
@@ -71,20 +72,19 @@ const BlogPost = () => {
         className="prose dark:prose-invert sm:prose-lg mx-auto prose-a:text-sky-500 prose-a:prose-h1:text-gray-800 dark:prose-a:prose-h1:text-gray-100 prose-a:no-underline prose-h1:text-lg prose-a:prose-h1:text-xl prose-a:prose-h1:font-bold prose-a:prose-h2:text-gray-800 dark:prose-a:prose-h2:text-gray-100 prose-h2:text-lg prose-a:prose-h2:text-xl prose-a:prose-h2:font-bold mb-12"
         dangerouslySetInnerHTML={{ __html: body }}
       />
-      <div className="prose sm:prose-lg mx-auto prose-a:no-underline">
-        <Anchor
-          href={`https://twitter.com/intent/tweet?${new URLSearchParams({
-            url: `${origin}/blog/${path}`,
-            text: tweetMessage,
-          })}`}
-          external
-          className="text-sky-500"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          Tweet this post
-        </Anchor>
-      </div>
+      <LinkButton
+        href={`https://twitter.com/intent/tweet?${new URLSearchParams({
+          url: `${origin}/blog/${path}`,
+          text: tweetMessage,
+        })}`}
+        external
+        className="flex w-fit text-sky-500"
+        target="_blank"
+        rel="noreferrer noopener"
+        small
+      >
+        <TwitterIcon /> Tweet this Post
+      </LinkButton>
     </Section>
   )
 }
