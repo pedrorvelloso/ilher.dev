@@ -12,6 +12,7 @@ import {
 } from 'remix'
 import type { LinksFunction, LoaderFunction, MetaFunction } from 'remix'
 
+import clsx from 'clsx'
 import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
 import noScriptStyles from './styles/no-script.css'
@@ -24,6 +25,7 @@ import { getDomainUrl, getUrl } from './utils/misc'
 
 import { Layout } from './components/layout'
 import { ErrorPage } from './components/error'
+import { PageLoading } from './components/loading'
 
 export const links: LinksFunction = () => {
   return [
@@ -91,6 +93,7 @@ function App() {
     <Document theme={theme}>
       <Layout>
         <Outlet />
+        <PageLoading />
       </Layout>
     </Document>
   )
@@ -127,7 +130,7 @@ function Document({
           <link rel="stylesheet" href={noScriptStyles} />
         </noscript>
       </head>
-      <body className={theme}>
+      <body className={clsx(theme, 'min-h-screen overflow-x-hidden')}>
         {children}
         <ScrollRestoration />
         <Scripts />

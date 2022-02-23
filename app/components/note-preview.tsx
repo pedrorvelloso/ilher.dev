@@ -15,6 +15,7 @@ export const NotePreview = ({
         className="text-gray-800 dark:text-gray-300 flex flex-col z-10 relative h-full"
         href={`/blog/${path}`}
         underline={false}
+        prefetch="intent"
       >
         <span className="text-gray-800 dark:text-gray-100 font-bold text-lg">
           {title}
