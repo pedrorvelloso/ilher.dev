@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface DrawerProps {
@@ -6,12 +6,6 @@ interface DrawerProps {
 }
 
 export const Drawer: React.FC<DrawerProps> = ({ isOpen, children }) => {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0]
     const html = document.getElementsByTagName('html')[0]
@@ -25,9 +19,6 @@ export const Drawer: React.FC<DrawerProps> = ({ isOpen, children }) => {
       html.style.overflowY = ''
     }
   }, [isOpen])
-
-  // hack fix for ssr warning
-  if (!mounted) return null
 
   return (
     <AnimatePresence>

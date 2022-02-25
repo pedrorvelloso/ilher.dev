@@ -30,9 +30,8 @@ export const PageLoading = () => {
     setMounted(true)
   }, [])
 
-  if (!mounted) return null
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter initial={false}>
       {showLoader && (
         <motion.div
           initial={{ x: 50, opacity: 0 }}
