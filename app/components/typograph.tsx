@@ -3,14 +3,24 @@ import clsx from 'clsx'
 interface HeadingProps {
   className?: string
   id?: string
+  colorScheme?: 'default' | 'primary'
 }
 
-const H1: React.FC<HeadingProps> = ({ className, id, children }) => {
+const H1: React.FC<HeadingProps> = ({
+  className,
+  id,
+  children,
+  colorScheme = 'default',
+}) => {
   return (
     <h1
       id={id}
       className={clsx(
-        'text-2xl lg:text-4xl text-gray-800 dark:text-gray-300 font-bold',
+        'text-2xl lg:text-4xl  font-bold',
+        {
+          'text-gray-800 dark:text-gray-300': colorScheme === 'default',
+          'text-accent': colorScheme === 'primary',
+        },
         className,
       )}
     >
@@ -19,11 +29,19 @@ const H1: React.FC<HeadingProps> = ({ className, id, children }) => {
   )
 }
 
-const H2: React.FC<HeadingProps> = ({ className, id, children }) => {
+const H2: React.FC<HeadingProps> = ({
+  className,
+  id,
+  children,
+  colorScheme = 'default',
+}) => {
   return (
     <h2
       id={id}
-      className={clsx(className, 'text-gray-700 dark:text-gray-200 text-xl')}
+      className={clsx(className, 'text-xl', {
+        'text-gray-700 dark:text-gray-200': colorScheme === 'default',
+        'text-accent': colorScheme === 'primary',
+      })}
     >
       {children}
     </h2>

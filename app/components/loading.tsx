@@ -38,9 +38,9 @@ export const PageLoading = () => {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: 50, opacity: 0 }}
           transition={{ ease: 'easeInOut', duration: 0.3 }}
-          className="fixed bottom-0 right-0 left-0 m-4 flex justify-end"
+          className="fixed bottom-0 right-0 left-0 m-4 flex justify-end z-30"
         >
-          <div className="bg-white flex items-center gap-8 py-5 px-9 rounded-lg shadow-md border border-gray-400 w-full sm:w-fit">
+          <div className="bg-white flex items-center gap-8 py-5 px-9 rounded-xl shadow-md border border-gray-400 w-full sm:w-fit">
             <div className="hidden sm:flex flex-col gap-2 p-3">
               <motion.div
                 transition={{

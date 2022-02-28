@@ -36,7 +36,7 @@ const ButtonContainer = <C extends React.ElementType = 'button'>({
   return (
     <Tag
       className={clsx(
-        'rounded-xl relative group transition-colors w-full',
+        'rounded-xl relative group transition-colors',
         {
           'dark:bg-gray-700 bg-gray-400': active && !outline && !plainActive,
           'bg-gray-700': active && !outline && plainActive,
