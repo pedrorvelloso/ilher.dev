@@ -14,7 +14,7 @@ export const Footer = () => {
         as="footer"
       >
         <div className="flex flex-col lg:flex-row justify-between gap-12">
-          <div className="max-w-sm">
+          <div className="lg:max-w-sm">
             <H2 colorScheme="primary">Pedro Reis</H2>
             <Paragraph className="mb-0">
               Full stack developer creating fast and cool experiences.
@@ -32,7 +32,7 @@ export const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="max-w-sm">
+          <div className="lg:max-w-sm">
             <H2 colorScheme="primary">Sign up to the newsletter</H2>
             <Paragraph>
               Get notified when I post something new or have something cool to
@@ -41,9 +41,24 @@ export const Footer = () => {
             <ConvertKitInputForm formId="3034146" />
           </div>
         </div>
-        <Paragraph className="mt-24">
-          All rights reserved © Pedro R. Santos {new Date().getFullYear()}
-        </Paragraph>
+        <div className="flex justify-center lg:justify-between items-end mt-24">
+          <p className="text-sm lg:text-base text-gray-500">
+            All rights reserved © Pedro R. Santos {new Date().getFullYear()}
+          </p>
+          <div className="text-black dark:text-white hidden lg:block">
+            Built with
+            <img
+              src="/imgs/remix-dark.svg"
+              className="hidden dark:block h-6"
+              alt="Remix Logo"
+            />
+            <img
+              src="/imgs/remix-light.svg"
+              className="dark:hidden block h-6"
+              alt="Remix Logo"
+            />
+          </div>
+        </div>
       </Section>
     </>
   )

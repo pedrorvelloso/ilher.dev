@@ -1,5 +1,8 @@
+import { useEffect, useRef } from 'react'
 import { useFetcher } from 'remix'
 import { motion } from 'framer-motion'
+
+import { ConvertKitSubscriptionResponse } from '~/types'
 
 import { Input } from '~/components/input'
 
@@ -8,15 +11,25 @@ interface ConvertKitInputFormProps {
 }
 
 export const ConvertKitInputForm = ({ formId }: ConvertKitInputFormProps) => {
-  const convertKit = useFetcher()
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const convertKit = useFetcher<ConvertKitSubscriptionResponse>()
+
   const state: 'idle' | 'success' | 'error' | 'submitting' =
+    (!convertKit.data || convertKit.data?.status === 'error') &&
     convertKit.submission
       ? 'submitting'
-      : convertKit.data?.error
+      : convertKit.data?.status === 'error'
       ? 'error'
-      : convertKit.data?.subscription
+      : convertKit.data?.status === 'success'
       ? 'success'
       : 'idle'
+
+  useEffect(() => {
+    if (state === 'error') {
+      inputRef.current?.focus()
+    }
+  }, [state])
 
   return (
     <convertKit.Form
@@ -37,13 +50,18 @@ export const ConvertKitInputForm = ({ formId }: ConvertKitInputFormProps) => {
       <Input
         name="email"
         placeholder="E-mail"
-        autoComplete="false"
+        type="email"
+        ref={inputRef}
+        autoComplete="off"
+        disabled={state === 'submitting' || state === 'success'}
+        errorMessage={convertKit.data?.error}
         leftContent={
           <button
             type="submit"
-            className="bg-accent text-white text-sm py-1 px-2 rounded-xl border border-accent hover:bg-transparent hover:text-accent transition-colors whitespace-nowrap"
+            disabled={state === 'submitting' || state === 'success'}
+            className="bg-accent text-white text-sm py-1 px-2 rounded-xl border border-accent hover:bg-transparent hover:text-accent transition-colors whitespace-nowrap disabled:bg-gray-300 disabled:hover:text-gray-500 disabled:text-gray-500 disabled:border-gray-300"
           >
-            sign up
+            {state === 'submitting' ? 'submitting' : 'sign up'}
           </button>
         }
       />
