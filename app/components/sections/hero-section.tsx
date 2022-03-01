@@ -3,6 +3,8 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { Avatar } from '~/components/avatar'
 import { Section } from '~/components/section'
 
+import avatar from '~/assets/avatar.jpeg'
+
 export const HeroSection = () => {
   const shouldUseReducedMotion = useReducedMotion()
 
@@ -54,7 +56,7 @@ export const HeroSection = () => {
           },
         }}
       >
-        <Avatar src="/imgs/avatar.jpeg" alt="Pedro Reis" className="mb-4" />
+        <Avatar src={avatar} alt="Pedro Reis" className="mb-4" />
       </motion.div>
     </Section>
   )

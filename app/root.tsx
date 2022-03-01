@@ -11,8 +11,8 @@ import {
   json,
 } from 'remix'
 import type { LinksFunction, LoaderFunction, MetaFunction } from 'remix'
-
 import clsx from 'clsx'
+
 import tailwindStyles from './styles/tailwind.css'
 import appStyles from './styles/app.css'
 import noScriptStyles from './styles/no-script.css'
@@ -91,10 +91,8 @@ function App() {
 
   return (
     <Document theme={theme}>
-      <Layout>
-        <Outlet />
-        <PageLoading />
-      </Layout>
+      <Outlet />
+      <PageLoading />
     </Document>
   )
 }
