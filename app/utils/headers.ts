@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import type { HeadersFunction } from 'remix'
 
 export const getHeaders: HeadersFunction = ({ loaderHeaders }) => {
