@@ -34,7 +34,7 @@ export const ConvertKitInputForm = ({ formId }: ConvertKitInputFormProps) => {
   return (
     <convertKit.Form
       method="post"
-      action="/api/convert-kit"
+      action="/action/convert-kit"
       className="relative"
     >
       <input type="hidden" value={formId} name="formId" />
