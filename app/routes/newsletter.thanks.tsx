@@ -6,6 +6,8 @@ import { Section } from '~/components/section'
 import { H1, Paragraph } from '~/components/typograph'
 import { NavigationButton } from '~/components/navigation-button'
 
+import avatar from '~/assets/avatar.jpeg'
+
 const minMax = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min)
 
@@ -55,12 +57,7 @@ const NewsletterThanks = () => {
             </>
           )}
         </AnimatePresence>
-        <Avatar
-          src="/imgs/avatar.jpeg"
-          alt="Pedro avatar"
-          size="sm"
-          className="mb-5"
-        />
+        <Avatar src={avatar} alt="Pedro avatar" size="sm" className="mb-5" />
         <H1 colorScheme="primary">Success</H1>
         <Paragraph className="text-center">
           You&apos;re officially subscribed to my newsletter!
