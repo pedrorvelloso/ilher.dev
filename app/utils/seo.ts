@@ -1,5 +1,5 @@
 import { RootLoaderData } from '~/root'
-import { BlogPostLoaderData } from '~/routes/blog/$slug'
+import { BlogPostLoaderData } from '~/routes/__app/blog.$slug'
 import { getUrl, ogImageLinkText } from './misc'
 
 type SiteSectionType = 'article' | 'website'
