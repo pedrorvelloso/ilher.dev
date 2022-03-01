@@ -45,6 +45,7 @@
     "no-console": "off",
     "no-var": "off",
     "no-underscore-dangle": "off",
+    "no-nested-ternary": "off",
     "jsx-a11y/anchor-is-valid": "off",
     "global-require": "off",
     "vars-on-top": "off",

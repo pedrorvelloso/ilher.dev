@@ -6,3 +6,8 @@ export interface NoteInfo {
   path: string
   readingTime: string
 }
+
+export interface ConvertKitSubscriptionResponse {
+  status: string
+  error?: string
+}
